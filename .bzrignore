@@ -1,0 +1,13 @@
+.directory
+auto
+figures/*.pdf
+images/unused
+master.aux
+master.log
+master.nav
+master.out
+master.pdf
+master.snm
+master.toc
+talk.pdf
+test.*
