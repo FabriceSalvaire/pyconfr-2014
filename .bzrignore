@@ -1,7 +1,6 @@
 .directory
+.git
 auto
-figures/*.pdf
-images/unused
 master.aux
 master.log
 master.nav
@@ -10,4 +9,6 @@ master.pdf
 master.snm
 master.toc
 talk.pdf
+talk/figures/*.pdf
+talk/images/unused
 test.*
