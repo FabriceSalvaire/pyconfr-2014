@@ -14,7 +14,7 @@
       \node [anchor=north] at (6,5.25) {Accélerateur Graphique};
       \node at (9,5) {\includegraphics[scale=.03]{images/nvidia-gforce.png}};
       \node [anchor=south,align=center] at (9,4.5) {Nvidia GeForce 256\\ $1^\text{er}$ GPU};
-      \node [anchor=west,align=left] at (11.5,5) {General Purpose\\ GPU};
+      \node [anchor=west,align=left] at (11.5,5) {\textbf{General Purpose} \\ \textbf{GPU}};
       \draw (14.5,0) -- +(.01,0); % hack
     \end{tikzpicture}
   \end{center}
@@ -95,6 +95,7 @@
 
 \begin{frame}
   \frametitle{Présentation de l'API OpenGL}
+  % même titre que ...
   \begin{columns}
     \begin{column}{.2\textwidth}
       \begin{center}
@@ -106,8 +107,8 @@
     \end{column}
     \begin{column}{.8\textwidth}
       \begin{itemize}
-        \item Un standard ouvert géré par le groupe Khronos
-        \item La seule API cross-platforme et cross-vendor
+        \item Un standard \textbf{ouvert} piloté par le groupe Khronos
+        \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
         \item L'API de facto de GNU/Linux et d'Android
         \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES)
         \item mais aussi orientée web (WebGL)

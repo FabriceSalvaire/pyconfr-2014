@@ -1,26 +1,61 @@
 
 \begin{frame}
-  \frametitle{Présentation de l'API OpenGL}
-  L'API OpenGL V4.5 core {\tiny (compatibility)} est constitué de~:
+  \frametitle{L'API OpenGL du point vue du codeur C}
+  % \frametitle{Présentation de l'API OpenGL}
+  % titre ?
+  API OpenGL V4.5 core~: % {\tiny (compatibility)}
   \begin{itemize}
-  \item 1328 {\tiny (1757)} constantes e.i.\ 0x1234
-  \item 653 {\tiny (1044)} fonctions \\[.5em]
+  \item 1328 constantes \small{i.e.\ 0x1234} % {\tiny (1757)}
+  \item 653 fonctions \\[.5em] % {\tiny (1044)} 
   \end{itemize}
-  Les types de données utilisés en entrée sont~:
+  Paramètres~:
   \begin{itemize}
-  \item type de base~: {\texttt (unsigned) char, short, int, float, double}
-  \item pointeur~: {\texttt void *(*), char *(*), int *, float *, \ldots} \\[.5em]
+  \item type de base via typedef~: {\texttt (unsigned) char, short, int, float, double}
+  \item pointeur~: {\texttt void *(*), char *(*), int *, float *, \ldots} \\[.5em] % * glyph
   \end{itemize}
-  en sortie~:
+  Return~:
   \begin{itemize}
   \item {\texttt unsigned char, (unsigned) int}
-  \item quelques cas~: {void *, const unsigned char *}
+  \item {void *, const unsigned char *} {\tiny (quelques cas)}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{XML API Registry}
-  % https://www.opengl.org/registry/
+  Fichier XML définissant~: \\
+  {\tiny \url{https://www.opengl.org/registry}} \\
+  \begin{itemize}
+    \item les constantes
+    \item les fonctions et leurs prototypes \\
+      \scriptsize{la \textbf{taille des tableau} passée par adresse est indiqué~:}
+      {\tiny%
+\begin{verbatim}
+void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void *data)
+
+<command>
+    <proto>void <name>glClearBufferData</name></proto>
+    ...
+    <param><ptype>GLenum</ptype> <name>format</name></param>
+    <param><ptype>GLenum</ptype> <name>type</name></param>
+    <param len="COMPSIZE(format,type)">const void *<name>data</name></param>
+</command>
+\end{verbatim}}
+    \item les extensions
+    \item les \textbf{versions} et leurs \textbf{profiles}
+  \end{itemize}
+  \centerline{\alert{$\longrightarrow$ Apporte des informations essentielles par rapport au fichier d'en-tête}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tous les paramètres ne ressemblent pas \ldots}
+  \begin{description}[output par référence]
+    \item[simple] \texttt{GLenum target}
+    \item[output par référence] \texttt{int * [1] length}
+    \item[input via pointeur] \texttt{GLsizeiptr size, const void * [size] data}
+    \item[output via pointeur] \texttt{GLsizeiptr size, void * [size] data}
+    \item[pointeur complexe] \texttt{GLenum pname, GLint * [COMPSIZE(pname)] data} \\
+      \texttt{const void * [COMPSIZE(format,type,width)] pixels}
+  \end{description}
 \end{frame}
 
 %%% Local Variables: 
