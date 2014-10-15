@@ -20,7 +20,7 @@
   \end{center}
   \begin{textblock}{12}(3.5,2.5)
     \begin{itemize}
-    \item convergence du hardware professionnel et consumer
+    \item convergence du hardware professionnel et grand-publique
     \item convergence des processeurs graphiques et de flux
     \item convergence des plateformes~: de l'embarqué au super-calculateur 
     \end{itemize}
@@ -28,7 +28,7 @@
  \end{frame}
 
 \begin{frame}
-  \frametitle{Présentation des GPUs: processeur de flux}
+  \frametitle{Présentation des GPUs~: processeur de flux}
   % dessin flux de données traversant la page
   \begin{center}
     \begin{tabular}{cc}
@@ -138,7 +138,82 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Python interfaces}
+  \frametitle{Outils pour interfacer du code C avec Python}
+  \begin{center}
+    % \begin{tabular}{|c|c|c|}
+    \begin{tabular}{ccc}
+      & Avantages & Inconvénients \\[.5em]
+      %
+      API C Python &
+      \begin{minipage}[t]{.2\linewidth}
+        \tiny
+        \begin{itemize}
+        \item au coeur de CPython
+        \end{itemize}
+      \end{minipage} &
+      \begin{minipage}[t]{.45\linewidth}
+        \tiny
+        \begin{itemize}
+        \item implémentation manuelle
+        \end{itemize}
+      \end{minipage} \\[1em] % ???
+      %
+      SWIG &
+      \begin{minipage}[t]{.2\linewidth}
+        \tiny
+        \begin{itemize}
+        \item \textbf{supporte \Cpp}
+        \item \textbf{header parser}
+        \item multi-langages
+        \end{itemize}
+      \end{minipage} &
+      \begin{minipage}[t]{.45\linewidth}
+        \tiny
+        \begin{itemize}
+        \item pas optimisé pour un langage (Python)
+        \item le mécanisme de macros (typemap) engendre du code bloat
+        \item requiert un compilateur
+        \item pypy ne supporte pas l'API C
+        \end{itemize}
+      \end{minipage} \\[1em] % ???
+      %
+      Ctypes &
+      \begin{minipage}[t]{.2\linewidth}
+        \tiny
+        \begin{itemize}
+        \item \textbf{inclus dans CPython}
+        \end{itemize}
+      \end{minipage} &
+      \begin{minipage}[t]{.45\linewidth}
+        \tiny
+        \begin{itemize}
+          \item non supporté par pypy
+        \end{itemize}
+      \end{minipage} \\[1em]
+      %
+      Cffi &
+      \begin{minipage}[t]{.2\linewidth}
+        \tiny
+        \begin{itemize}
+        \item \textbf{header parser}
+        \item \textbf{ABI et API}
+        \item \textbf{supporté par pypy}
+        \end{itemize}
+      \end{minipage} &
+      \begin{minipage}[t]{.45\linewidth}
+        \tiny
+        \begin{itemize}
+        \item ???
+        \end{itemize}
+      \end{minipage}
+    \end{tabular} \\[1em]
+    \alert{Cffi est la solution idéale pour interfacer du C} \\[.5em]
+    \alert{SWIG est une solution pour interfacer du \Cpp}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Framework Python interfaçant l'API OpenGL} % fr
   \begin{itemize}
     \item PyOpenGL
     \item pyglet~: a cross-platform windowing and multimedia library
@@ -154,6 +229,17 @@
 
 \begin{frame}
   \frametitle{PyOpenGL}
+  % 3 générations~: \\
+  \begin{description}
+  \item[1.x] C extension basé sur l'API C Python {\tiny (David Ascher et. al)}
+  \item[2.x] généré par SWIG {\tiny (Tarn Weisner Burton)}
+  \item[3.x] utilise ctypes {\tiny (Mike C. Fletcher \url{http://www.vrplumber.com})}
+    \begin{itemize}
+    \item OpenGL header parser
+    \item PyOpenGL-3.1.0~: 2000 fichiers (\emph{en comptant les extensions})
+    \item PyOpenGL-accelerate-3.1.0
+    \end{itemize}
+  \end{description}
 \end{frame}
 
 %%% Local Variables: 
