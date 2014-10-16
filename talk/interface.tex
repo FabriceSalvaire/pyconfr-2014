@@ -20,6 +20,20 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Les prototypes de fonctions en C}
+  \begin{itemize}
+    \item principe de base~: \\
+      \texttt{output\_type function(type parameter, \ldots)}
+    \item plus d'une valeur retournée~: \\
+      \texttt{output\_type function(type \alert{*} parameter, \ldots)}
+    \item transmettre des tableaux~: \\
+      \texttt{output\_type function(size\_type size, data\_type *array, \ldots)}
+    \item transmettre des tableaux en lecture seul~: \\
+      \texttt{output\_type function(size\_type size, \alert{const} data\_type *array, \ldots)}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{XML API Registry}
   Fichier XML définissant~: \\
@@ -48,12 +62,13 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 
 \begin{frame}
   \frametitle{Tous les paramètres ne ressemblent pas \ldots}
-  \begin{description}[output par référence]
+  \begin{description}[input/output via pointeur]
     \item[simple] \texttt{GLenum target}
-    \item[output par référence] \texttt{int * [1] length}
-    \item[input via pointeur] \texttt{GLsizeiptr size, const void * [size] data}
-    \item[output via pointeur] \texttt{GLsizeiptr size, void * [size] data}
-    \item[pointeur complexe] \texttt{GLenum pname, GLint * [COMPSIZE(pname)] data} \\
+    \item[output par référence] \texttt{int \alert{* [1]} length}
+      % plus d'un paramètre retourné
+    \item[input via pointeur] \texttt{GLsizeiptr size, \alert{const} void \alert{* [size]} data}
+    \item[input/output via pointeur] \texttt{GLsizeiptr size, void \alert{* [size]} data}
+    \item[pointeur complexe] \texttt{GLenum pname, GLint \alert{* [COMPSIZE(pname)]} data} \\
       \texttt{const void * [COMPSIZE(format,type,width)] pixels}
   \end{description}
 \end{frame}
