@@ -60,17 +60,88 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   \centerline{\alert{$\longrightarrow$ Apporte des informations essentielles par rapport au fichier d'en-tête}}
 \end{frame}
 
+\newcommand{\colorR}[1]{{\color{red!80!black}#1}}
+\newcommand{\colorG}[1]{{\color{green!80!black}#1}}
+\newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
+
 \begin{frame}
   \frametitle{Tous les paramètres ne ressemblent pas \ldots}
   \begin{description}[input/output via pointeur]
     \item[simple] \texttt{GLenum target}
-    \item[output par référence] \texttt{int \alert{* [1]} length}
+    \item[output par référence] \texttt{int \colorR{* [1]} length}
       % plus d'un paramètre retourné
-    \item[input via pointeur] \texttt{GLsizeiptr size, \alert{const} void \alert{* [size]} data}
-    \item[input/output via pointeur] \texttt{GLsizeiptr size, void \alert{* [size]} data}
-    \item[pointeur complexe] \texttt{GLenum pname, GLint \alert{* [COMPSIZE(pname)]} data} \\
+    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{* [size]} data}
+    \item[input/output via pointeur] \texttt{GLsizeiptr size, void \colorR{* [size]} data}
+    \item[pointeur complexe] \texttt{GLenum pname, GLint \colorR{* [COMPSIZE(pname)]} data} \\
       \texttt{const void * [COMPSIZE(format,type,width)] pixels}
   \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tous les paramètres ne ressemblent pas \ldots}
+  \begin{description}[input/output via pointeur]
+    \item[simple] \texttt{GLenum target} \\
+      \colorB{Python $\longrightarrow$ C}
+    \item[output par référence] \texttt{int \alert{* [1]} length} \\
+      \colorB{%
+        disparaît du prototype Python \\
+        C  $\longrightarrow$ Python \\
+        retourné dans l'ordre d'apparition \\[.5em]
+        int foo(int p1, int *r1, int *r2) \\
+        $\longrightarrow$ \\
+        o0, r1, r2 = foo(p1)
+      }
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tous les paramètres ne ressemblent pas \ldots}
+  \begin{description}[input/output via pointeur]
+    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{* [size]} data} \\
+      \colorB{%
+        pointeur disparaît du prototype Python \\
+        \texttt{size = len(p)} \\
+        \alert{XML est incomplet: size = len(p) or size\_of(p)} \\
+        logiquement \texttt{void} $\Longrightarrow$ \texttt{size\_of} et \texttt{float} $\Longrightarrow$ \texttt{len}
+        \begin{enumerate}
+          \item type = \texttt{const char **}~: \texttt{str(p)} ou \texttt{[str(x) for x in p]}
+          \item p = Numpy array~: check type if type not void
+          \item p = iterable
+        \end{enumerate}
+        int foo(int p1, int *s2, float *p2) \\
+        $\longrightarrow$ \\
+        o0 = foo(p1, p2)
+        }
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Input/Output via Pointeur}
+  \begin{enumerate}
+  \item type = \texttt{void *}~: p = Numpy array, \texttt{size = p.nbytes} \\
+    int foo(int p1, int *s2, float *p2) \\
+    $\longrightarrow$ \\
+    o0 = foo(p1, p2)
+    % 
+  \item type = \texttt{char *}~: p = size, new string \\
+    int foo(int p1, int *s2, char *p2) \\
+    $\longrightarrow$ \\
+    o0, p2 = foo(p1, s2)
+    % 
+  \item p = Numpy array~: check type, \texttt{size = p.size} \\
+    idem \texttt{void *}
+    % 
+  \item p = size~: return a Numpy array or list \\
+    idem \texttt{char *}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pointeur Complexe}
+  \begin{enumerate}
+  \item type = \texttt{const char *}
+  \item p = Numpy array~: check type if type not void
+  \end{enumerate}
 \end{frame}
 
 %%% Local Variables: 
