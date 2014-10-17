@@ -216,33 +216,33 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Framework Python interfaçant l'API OpenGL} % fr
+  \frametitle{Framework Python interfaçant l'API OpenGL}
   \begin{itemize}
-    \item PyOpenGL
-    \item pyglet~: a cross-platform windowing and multimedia library
-    \item Vispy~: a high-performance interactive 2D/3D data visualization library
+    \item \href{http://pyopengl.sourceforge.net}{PyOpenGL}
+    \item \href{http://www.pyglet.org}{Pyglet}~: a cross-platform windowing and multimedia library
+    \item \href{http://vispy.org}{Vispy}~: a high-performance interactive 2D/3D data visualization library
   \end{itemize}
-  \note[enumerate]
-  {
-  \item http://pyopengl.sourceforge.net
-  \item http://www.pyglet.org
-  \item http://vispy.org
-  }
+  % \note[enumerate]
+  % {
+  % \item 
+  % }
 \end{frame}
 
 \begin{frame}
   \frametitle{PyOpenGL}
   % 3 générations~: \\
-  \begin{description}
-  \item[1.x] C extension basé sur l'API C Python {\tiny (David Ascher et. al)}
-  \item[2.x] généré par SWIG {\tiny (Tarn Weisner Burton)}
-  \item[3.x] utilise ctypes {\tiny (Mike C. Fletcher \url{http://www.vrplumber.com})}
-    \begin{itemize}
-    \item OpenGL header parser
-    \item PyOpenGL-3.1.0~: 2000 fichiers (\emph{en comptant les extensions})
-    \item PyOpenGL-accelerate-3.1.0
-    \end{itemize}
-  \end{description}
+  %\begin{block}{PyOpenGL}
+    \begin{description}
+    \item[V1.x] C extension basé sur l'API C Python {\tiny (David Ascher et. al)}
+    \item[V2.x] généré par SWIG {\tiny (Tarn Weisner Burton)}
+    \item[V3.x] basé sur ctypes {\tiny (\href{http://www.vrplumber.com}{Mike C. Fletcher})}
+      \begin{itemize}
+      \item implémente un header parser
+      \item PyOpenGL-3.1.0~: 2000 fichiers \small({\emph{en comptant les extensions})}
+      \item PyOpenGL-accelerate-3.1.0
+      \end{itemize}
+    \end{description}
+  %\end{block}
 \end{frame}
 
 %%% Local Variables: 

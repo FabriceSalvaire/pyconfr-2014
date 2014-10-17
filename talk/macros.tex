@@ -1,4 +1,10 @@
 
+% Redefinition, symbol included in link:
+\pgfdeclareimage[height=1mm]{externalLink}{images/external-link-small.png}
+\let\orighref\href
+%\renewcommand{\href}[2]{\orighref{#1}{#2\,\resizebox{!}{1.mm}{\faExternalLink}}} % lualatex
+\renewcommand{\href}[2]{\orighref{#1}{#2\,\pgfuseimage{externalLink}}}
+
 \newcommand{\ptr}{\textasteriskcentered}
 
 %%% Local Variables: 

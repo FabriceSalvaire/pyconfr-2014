@@ -26,9 +26,12 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,shapes,backgrounds,arrows}
 
+\usepackage{graphics}
+
 %**** Encoding ***********************************
 
 \usepackage[utf8]{inputenc}
+\hypersetup{pdfencoding=auto} % lualatex
 
 %**** Language ***********************************
 
@@ -40,7 +43,10 @@
 
 %**** Font ***************************************
 
-% \usepackage{lmodern} % Postscript layout of CM with T1 coding
+%\usepackage{fontspec} % spoil circle and textasteriskcentered
+%\usepackage{fontawesome} % require lualatex % spoil circle and textasteriskcentered
+\usepackage{lmodern} % Postscript layout of CM with T1 coding
+%\setsansfont{...}
 %? \usepackage{eulervm}
 % \usepackage[T1]{fontenc}
 

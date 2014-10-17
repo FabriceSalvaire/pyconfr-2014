@@ -19,11 +19,14 @@ FIGURES_PDF = $(patsubst %.py, %.pdf, ${FIGURES_PY})
 #
 ####################################################################################################
 
+LATEX_COMMAND=pdflatex
+#LATEX_COMMAND=lualatex
+
 #INTERACTION=
 #INTERACTION=-interaction=batchmode
 INTERACTION=-interaction=nonstopmode
 
-LATEX = pdflatex ${INTERACTION}
+LATEX = ${LATEX_COMMAND} ${INTERACTION}
 # -jobname=${JOB_NAME}
 
 ####################################################################################################
