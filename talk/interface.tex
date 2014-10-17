@@ -11,12 +11,12 @@
   Paramètres~:
   \begin{itemize}
   \item type de base via typedef~: {\texttt (unsigned) char, short, int, float, double}
-  \item pointeur~: {\texttt void *(*), char *(*), int *, float *, \ldots} \\[.5em] % * glyph
+  \item pointeur~: {\texttt void \ptr(\ptr), char \ptr(\ptr), int \ptr, float \ptr, \ldots} \\[.5em] % * glyph
   \end{itemize}
   Return~:
   \begin{itemize}
   \item {\texttt unsigned char, (unsigned) int}
-  \item {void *, const unsigned char *} {\tiny (quelques cas)}
+  \item {void \ptr, const unsigned char \ptr} {\tiny (quelques cas)}
   \end{itemize}
 \end{frame}
 
@@ -26,11 +26,11 @@
     \item principe de base~: \\
       \texttt{output\_type function(type parameter, \ldots)}
     \item plus d'une valeur retournée~: \\
-      \texttt{output\_type function(type \alert{*} parameter, \ldots)}
+      \texttt{output\_type function(type \alert{\ptr} parameter, \ldots)}
     \item transmettre des tableaux~: \\
-      \texttt{output\_type function(size\_type size, data\_type *array, \ldots)}
+      \texttt{output\_type function(size\_type size, data\_type \ptr array, \ldots)}
     \item transmettre des tableaux en lecture seul~: \\
-      \texttt{output\_type function(size\_type size, \alert{const} data\_type *array, \ldots)}
+      \texttt{output\_type function(size\_type size, \alert{const} data\_type \ptr array, \ldots)}
   \end{itemize}
 \end{frame}
 
@@ -44,14 +44,14 @@
       \scriptsize{la \textbf{taille des tableau} passée par adresse est indiqué~:}
       {\tiny%
 \begin{verbatim}
-void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void *data)
+void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void \ptr data)
 
 <command>
     <proto>void <name>glClearBufferData</name></proto>
     ...
     <param><ptype>GLenum</ptype> <name>format</name></param>
     <param><ptype>GLenum</ptype> <name>type</name></param>
-    <param len="COMPSIZE(format,type)">const void *<name>data</name></param>
+    <param len="COMPSIZE(format,type)">const void \ptr<name>data</name></param>
 </command>
 \end{verbatim}}
     \item les extensions
@@ -64,16 +64,18 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \newcommand{\colorG}[1]{{\color{green!80!black}#1}}
 \newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
 
+\newcommand{\bgR}{red!20!white}
+
 \begin{frame}
   \frametitle{Tous les paramètres ne ressemblent pas \ldots}
   \begin{description}[input/output via pointeur]
     \item[simple] \texttt{GLenum target}
-    \item[output par référence] \texttt{int \colorR{* [1]} length}
+    \item[output par référence] \texttt{int \colorR{\ptr [1]} length}
       % plus d'un paramètre retourné
-    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{* [size]} data}
-    \item[input/output via pointeur] \texttt{GLsizeiptr size, void \colorR{* [size]} data}
-    \item[pointeur complexe] \texttt{GLenum pname, GLint \colorR{* [COMPSIZE(pname)]} data} \\
-      \texttt{const void * [COMPSIZE(format,type,width)] pixels}
+    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{\ptr [size]} data}
+    \item[input/output via pointeur] \texttt{GLsizeiptr size, void \colorR{\ptr [size]} data}
+    \item[pointeur complexe] \texttt{GLenum pname, GLint \colorR{\ptr [COMPSIZE(pname)]} data} \\
+      \texttt{const void \ptr [COMPSIZE(format,type,width)] pixels}
   \end{description}
 \end{frame}
 
@@ -82,14 +84,14 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   \begin{description}[input/output via pointeur]
     \item[simple] \texttt{GLenum target} \\
       \colorB{Python $\longrightarrow$ C}
-    \item[output par référence] \texttt{int \alert{* [1]} length} \\
+    \item[output par référence] \texttt{int \alert{\ptr [1]} length} \\
       \colorB{%
         disparaît du prototype Python \\
         C  $\longrightarrow$ Python \\
         retourné dans l'ordre d'apparition \\[.5em]
-        int foo(int p1, int *r1, int *r2) \\
-        $\longrightarrow$ \\
-        o0, r1, r2 = foo(p1)
+        \colorbox{\bgR}{int} foo(\colorbox{green!20!white}{int p1}, \colorbox{blue!20!white}{int \ptr r1, int \ptr r2}) \\
+        % $\longrightarrow$ \\
+        \colorbox{red!20!white}{o0}, \colorbox{blue!20!white}{r1, r2} = foo(\colorbox{green!20!white}{p1})
       }
   \end{description}
 \end{frame}
@@ -97,49 +99,54 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \begin{frame}
   \frametitle{Tous les paramètres ne ressemblent pas \ldots}
   \begin{description}[input/output via pointeur]
-    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{* [size]} data} \\
-      \colorB{%
+    \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{\ptr [size]} data} \\
+      %\colorB{%
         pointeur disparaît du prototype Python \\
         \texttt{size = len(p)} \\
+        \begin{tikz}
+          \node [fill=yellow!80, isosceles triangle, shape border rotate=90, inner sep=.1pt, rounded corners] {!};
+        \end{tikz}%
         \alert{XML est incomplet: size = len(p) or size\_of(p)} \\
         logiquement \texttt{void} $\Longrightarrow$ \texttt{size\_of} et \texttt{float} $\Longrightarrow$ \texttt{len}
         \begin{enumerate}
-          \item type = \texttt{const char **}~: \texttt{str(p)} ou \texttt{[str(x) for x in p]}
+          \item type = \texttt{const char \ptr\ptr}~: \texttt{str(p)} ou \texttt{[str(x) for x in p]}
           \item p = Numpy array~: check type if type not void
           \item p = iterable
         \end{enumerate}
-        int foo(int p1, int *s2, float *p2) \\
+        int foo(int p1, int \ptr s2, float \ptr p2) \\
         $\longrightarrow$ \\
         o0 = foo(p1, p2)
-        }
+      %}
   \end{description}
 \end{frame}
 
 \begin{frame}
   \frametitle{Input/Output via Pointeur}
   \begin{enumerate}
-  \item type = \texttt{void *}~: p = Numpy array, \texttt{size = p.nbytes} \\
-    int foo(int p1, int *s2, float *p2) \\
+  \item type = \texttt{void \ptr}~: p = Numpy array, \texttt{size = p.nbytes} \\
+    int foo(int p1, int \ptr s2, float \ptr p2) \\
     $\longrightarrow$ \\
     o0 = foo(p1, p2)
     % 
-  \item type = \texttt{char *}~: p = size, new string \\
-    int foo(int p1, int *s2, char *p2) \\
+  \item type = \texttt{char \ptr}~: p = size, new string \\
+    int foo(int p1, int \ptr s2, char \ptr p2) \\
     $\longrightarrow$ \\
     o0, p2 = foo(p1, s2)
     % 
   \item p = Numpy array~: check type, \texttt{size = p.size} \\
-    idem \texttt{void *}
+    idem \texttt{void \ptr}
     % 
   \item p = size~: return a Numpy array or list \\
-    idem \texttt{char *}
+    idem \texttt{char \ptr}
   \end{enumerate}
 \end{frame}
 
 \begin{frame}
   \frametitle{Pointeur Complexe}
   \begin{enumerate}
-  \item type = \texttt{const char *}
+    \setbeamercolor{item projected}{bg=blue!50!white,fg=white}
+  \setbeamertemplate{enumerate items}[circle]
+  \item type = \texttt{const char \ptr}
   \item p = Numpy array~: check type if type not void
   \end{enumerate}
 \end{frame}
