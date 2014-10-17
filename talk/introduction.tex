@@ -215,34 +215,67 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Framework Python interfaçant l'API OpenGL}
-  \begin{itemize}
-    \item \href{http://pyopengl.sourceforge.net}{PyOpenGL}
-    \item \href{http://www.pyglet.org}{Pyglet}~: a cross-platform windowing and multimedia library
-    \item \href{http://vispy.org}{Vispy}~: a high-performance interactive 2D/3D data visualization library
-  \end{itemize}
-  % \note[enumerate]
-  % {
-  % \item 
-  % }
-\end{frame}
+% \begin{frame}
+%   \frametitle{Framework Python interfaçant l'API OpenGL}
+%   \begin{itemize}
+%     \item \href{http://pyopengl.sourceforge.net}{PyOpenGL}
+%     \item \href{http://www.pyglet.org}{Pyglet}~: a cross-platform windowing and multimedia library
+%     \item \href{http://vispy.org}{Vispy}~: a high-performance interactive 2D/3D data visualization library
+%   \end{itemize}
+%   % \note[enumerate]
+%   % {
+%   % \item 
+%   % }
+% \end{frame}
 
-\begin{frame}
-  \frametitle{PyOpenGL}
-  % 3 générations~: \\
-  %\begin{block}{PyOpenGL}
-    \begin{description}
+\begin{frame}[fragile]
+  \frametitle{\href{http://pyopengl.sourceforge.net}{PyOpenGL}~: la réference actuelle}
+  3 générations~:
+  \begin{description}
     \item[V1.x] C extension basé sur l'API C Python {\tiny (David Ascher et. al)}
     \item[V2.x] généré par SWIG {\tiny (Tarn Weisner Burton)}
     \item[V3.x] basé sur ctypes {\tiny (\href{http://www.vrplumber.com}{Mike C. Fletcher})}
+      % -3.1.0
       \begin{itemize}
-      \item implémente un header parser
-      \item PyOpenGL-3.1.0~: 2000 fichiers \small({\emph{en comptant les extensions})}
-      \item PyOpenGL-accelerate-3.1.0
+      \item \textbf{compatibilité ascendante avec la V2.x}
+      \item implémente un parser de fichier d'en-tête
+      \item PyOpenGL~: 2000 fichiers \small({\emph{en comptant les extensions})}
+      \item PyOpenGL-accelerate
       \end{itemize}
     \end{description}
-  %\end{block}
+    \vspace{1em}
+    et des alternatives~:
+    \begin{itemize}
+    \item \href{http://www.pyglet.org}{Pyglet}~: a cross-platform windowing and multimedia library
+    \item \href{http://vispy.org}{Vispy}~: a high-performance interactive 2D/3D data visualization library
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{PyOpenGL~: ce qui pêche}
+  Exemples de difficultés rencontrées au cours du temps~:
+    \begin{itemize}
+    \item absence de constante~:%
+      {\tiny\begin{verbatim}GL.GL_RG_INTEGER = OpenGL.constant.Constant('GL_RG_INTEGER', 0x8228)}\end{verbatim}}
+    \item \code{glGetObjectParameteriv} est ici~:%
+      {\tiny\begin{verbatim}import OpenGL.GL.ARB.shader_objects as GL_SO\end{verbatim}}
+    \item \code{glGetActiveUniformBlockName} n'a pas de Pythonic wrapper~:
+{\tiny%
+\begin{verbatim}
+name = ctypes.create_string_buffer(max_name_length)
+name_length = OpenGL.arrays.GLsizeiArray.zeros((1,))
+GL.glGetActiveUniformBlockName(program, index, max_name_length, name_length, name)
+return name.value[:int(name_length[0])]
+\end{verbatim}}
+    \end{itemize}
+    \vspace{1em}
+    Résumé~:
+    \begin{itemize}
+    \item une longue histoire
+    \item un code source touffue
+    \item Python et OpenGL ont évolué
+    \item pas d'API de haut niveau pour l'OpenGL moderne % l'API 
+    \end{itemize}
 \end{frame}
 
 %%% Local Variables: 

@@ -1,43 +1,36 @@
 
 \begin{frame}
   \frametitle{L'API OpenGL du point vue du codeur C}
+  \begin{textblock}{12}(12,1.5)
+    \begin{tikzpicture}
+      % \draw [help lines] grid(3,2);
+      \includegraphics[height=10mm]{images/funny-python.png}
+      %\pgfuseimage{FunnyPythonSmall}
+      \node[draw=black, cloud callout, cloud puffs=15, aspect=2.5, cloud puff arc=120, callout relative pointer={(-.8,-.5)}] at (,1.8) {void \ptr\ptr};
+    \end{tikzpicture}
+  \end{textblock}
   % \frametitle{Présentation de l'API OpenGL}
   % titre ?
   API OpenGL V4.5 core~: % {\tiny (compatibility)}
   \begin{itemize}
-  \item 1328 constantes \small{i.e.\ 0x1234} % {\tiny (1757)}
+  \item 1328 constantes {\small i.e.\ 0x1234} % {\tiny (1757)}
   \item 653 fonctions \\[.5em] % {\tiny (1044)} 
   \end{itemize}
   Paramètres~:
   \begin{itemize}
-  \item type de base via typedef~: {\texttt (unsigned) char, short, int, float, double}
-  \item pointeur~: {\texttt void \ptr(\ptr), char \ptr(\ptr), int \ptr, float \ptr, \ldots} \\[.5em] % * glyph
+  \item type de base via typedef~: \code{(unsigned) char, short, int, float, double}
+  \item pointeur~: \code{void \ptr(\ptr), char \ptr(\ptr), int \ptr, float \ptr, \ldots} \\[.5em] % * glyph
   \end{itemize}
   Return~:
   \begin{itemize}
-  \item {\texttt unsigned char, (unsigned) int}
-  \item {void \ptr, const unsigned char \ptr} {\tiny (quelques cas)}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Les prototypes de fonctions en C}
-  \begin{itemize}
-    \item principe de base~: \\
-      \texttt{output\_type function(type parameter, \ldots)}
-    \item plus d'une valeur retournée~: \\
-      \texttt{output\_type function(type \alert{\ptr} parameter, \ldots)}
-    \item transmettre des tableaux~: \\
-      \texttt{output\_type function(size\_type size, data\_type \ptr array, \ldots)}
-    \item transmettre des tableaux en lecture seul~: \\
-      \texttt{output\_type function(size\_type size, \alert{const} data\_type \ptr array, \ldots)}
+  \item \code{unsigned char, (unsigned) int}
+  \item \code{void \ptr, const unsigned char \ptr} {\tiny (quelques cas)}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML API Registry}
-  Fichier XML définissant~: \\
-  {\tiny \url{https://www.opengl.org/registry}} \\
+  \frametitle{XML API Registry~:  c'est cool!}
+  \href{https://www.opengl.org/registry}{Fichier XML} définissant~: \\
   \begin{itemize}
     \item les constantes
     \item les fonctions et leurs prototypes \\
@@ -51,7 +44,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
     ...
     <param><ptype>GLenum</ptype> <name>format</name></param>
     <param><ptype>GLenum</ptype> <name>type</name></param>
-    <param len="COMPSIZE(format,type)">const void \ptr<name>data</name></param>
+    <param len="COMPSIZE(format,type)">const void *<name>data</name></param>
 </command>
 \end{verbatim}}
     \item les extensions
@@ -60,11 +53,19 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   \centerline{\alert{$\longrightarrow$ Apporte des informations essentielles par rapport au fichier d'en-tête}}
 \end{frame}
 
-\newcommand{\colorR}[1]{{\color{red!80!black}#1}}
-\newcommand{\colorG}[1]{{\color{green!80!black}#1}}
-\newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
-
-\newcommand{\bgR}{red!20!white}
+\begin{frame}
+  \frametitle{Les prototypes de fonctions en C}
+  \begin{itemize}
+    \item principe de base~: \\
+      \code{output\_type function(type parameter, \ldots)}
+    \item plus d'une valeur retournée~: \\
+      \code{output\_type function(type \alert{\ptr} parameter, \ldots)}
+    \item transmettre des tableaux~: \\
+      \code{output\_type function(size\_type size, data\_type \ptr array, \ldots)}
+    \item transmettre des tableaux en lecture seul~: \\
+      \code{output\_type function(size\_type size, \alert{const} data\_type \ptr array, \ldots)}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
   \frametitle{Tous les paramètres ne ressemblent pas \ldots}
