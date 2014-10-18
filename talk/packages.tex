@@ -12,6 +12,36 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{iftex}
+
+%**** Encoding and Font **************************
+
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern} % Postscript layout of CM with T1 coding
+\else
+  \ifLuaTeX
+    % \usepackage[utf8]{luainputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage{lmodern} % Postscript layout of CM with T1 coding
+    %
+    \hypersetup{pdfencoding=auto}
+    %
+    % \usepackage{fontspec} % spoil circle to square and textasteriskcentered
+    % \usefontheme{professionalfonts}
+    % \usepackage{unicode-math}
+    % \setmathfont{Latin Modern Math}
+    % \usepackage{fontawesome}
+  \fi
+\fi
+
+%**** Language ***********************************
+
+\usepackage[frenchb]{babel}
+%\usepackage[english]{babel}
+% \usepackage{frenchle} % compatibility?
+
 %** Beamer ***************************************
 
 \usepackage{beamerthemefabrice}
@@ -28,27 +58,10 @@
 
 \usepackage{graphics}
 
-%**** Encoding ***********************************
+%**** Textpos ************************************
 
-\usepackage[utf8]{inputenc}
-\hypersetup{pdfencoding=auto} % lualatex
-
-%**** Language ***********************************
-
-\usepackage[english]{babel} % -> french
-
-%**** Units and number ***************************
-
-% \usepackage{unite}
-
-%**** Font ***************************************
-
-%\usepackage{fontspec} % spoil circle and textasteriskcentered
-%\usepackage{fontawesome} % require lualatex % spoil circle and textasteriskcentered
-\usepackage{lmodern} % Postscript layout of CM with T1 coding
-%\setsansfont{...}
-%? \usepackage{eulervm}
-% \usepackage[T1]{fontenc}
+\usepackage[absolute,overlay]{textpos} % ,showboxes
+\TPGrid{16}{9}
 
 %**** Tabular ************************************
 
@@ -61,14 +74,14 @@
 %% \setlength{\cellspacebottomlimit}{1pt} 
 %% \setlength{\cellspacetoplimit}{1pt} 
 
-%**** Textpos ************************************
-
-\usepackage[absolute,overlay]{textpos} % ,showboxes
-\TPGrid{16}{9}
 
 %**** Color **************************************
 
 \usepackage{xcolor}
+
+%**** Units and number ***************************
+
+% \usepackage{unite}
 
 %*************************************************
 

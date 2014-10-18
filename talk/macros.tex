@@ -1,3 +1,4 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Redefinition, symbol included in link:
 \let\orighref\href
@@ -5,20 +6,29 @@
 \pgfdeclareimage[height=1mm]{externalLink}{images/external-link-small.png}
 \renewcommand{\href}[2]{\orighref{#1}{#2\,\pgfuseimage{externalLink}}}
 
-\newcommand{\ptr}{\textasteriskcentered}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\ptr}{\textasteriskcentered}
 \newcommand{\code}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\colorR}[1]{{\color{red!80!black}#1}}
 \newcommand{\colorG}[1]{{\color{green!80!black}#1}}
 \newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
 \newcommand{\bgR}{red!20!white}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \pgfdeclareimage[height=2cm]{FunnyPython}{images/funny-python.png}
 \pgfdeclareimage[height=10mm]{FunnyPythonSmall}{images/funny-python.png}
 \pgfdeclareimage[height=1cm]{OpenGLLogo}{images/khronos-logos/OpenGL/OpenGL_500.jpg}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "master"
 %%% End: 
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

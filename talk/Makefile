@@ -19,8 +19,8 @@ FIGURES_PDF = $(patsubst %.py, %.pdf, ${FIGURES_PY})
 #
 ####################################################################################################
 
-LATEX_COMMAND=pdflatex
-#LATEX_COMMAND=lualatex
+#LATEX_COMMAND=pdflatex
+LATEX_COMMAND=lualatex
 
 #INTERACTION=
 #INTERACTION=-interaction=batchmode
@@ -60,7 +60,7 @@ fast: ${TEXFILES}
 	${LATEX} ${MASTER}
 
 clean:
-	-rm *.aux *.bbl *.blg *.dvi *.log *.lof *.lot *.toc *.idx *.lgpl *.nav *.out *.snm \
+	-rm *.aux *.bbl *.blg *.dvi *.log *.lof *.lot *.toc *.idx *.lgpl *.nav *.out *.snm *.vrb \
 	${JOB_NAME}.pdf
 
 ####################################################################################################
