@@ -4,7 +4,15 @@
 \let\orighref\href
 %\renewcommand{\href}[2]{\orighref{#1}{#2\,\resizebox{!}{1.mm}{\faExternalLink}}} % lualatex
 \pgfdeclareimage[height=1mm]{externalLink}{images/external-link-small.png}
-\renewcommand{\href}[2]{\orighref{#1}{#2\,\pgfuseimage{externalLink}}}
+\renewcommand{\href}[2]{%
+\orighref{#1}{#2\,%
+  \begin{tikzpicture}[scale=.1, mystyle/.style={line style=.15pt, line cap=round, line join=round}]
+    \draw[mystyle] (1,.4) -- (1,0) -- (0,0) -- (0,1) -- (.7,1);
+    \fill (.8,1.2) -- ++(.5,0) -- ++(0,-.5);
+    \draw[mystyle] (.6,.4) -- (1.1,1.);
+  \end{tikzpicture}%
+%\pgfuseimage{externalLink}
+}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

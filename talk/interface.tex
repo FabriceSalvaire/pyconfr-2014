@@ -1,12 +1,13 @@
 
 \begin{frame}
   \frametitle{L'API OpenGL du point vue du codeur C}
-  \begin{textblock}{12}(12,1.5)
+  \begin{textblock}{12}(12,1.25)
     \begin{tikzpicture}
       % \draw [help lines] grid(3,2);
-      \includegraphics[height=10mm]{images/funny-python.png}
-      %\pgfuseimage{FunnyPythonSmall}
-      \node[draw=black, cloud callout, cloud puffs=15, aspect=2.5, cloud puff arc=120, callout relative pointer={(-.8,-.5)}] at (,1.8) {void \ptr\ptr};
+      % \pgfuseimage{FunnyPythonSmall}
+      \node[inner sep=0pt] at (0,0) {\includegraphics[height=10mm]{images/funny-python.png}};
+      \node[draw=black, cloud callout, cloud puffs=15, aspect=2.5, cloud puff arc=120,
+      callout relative pointer={(-.6,-.3)}] at (1.5,1) {void \ptr\ptr}; % absolute fails ?
     \end{tikzpicture}
   \end{textblock}
   % \frametitle{Présentation de l'API OpenGL}
@@ -30,14 +31,18 @@
 
 \begin{frame}[fragile]
   \frametitle{XML API Registry~:  c'est cool!}
+  \begin{tikzpicture}[remember picture, overlay, mystyle/.style={fill=red!20, opacity=1.}] % run twice
+    \fill[mystyle] ($(current page.south west) + (2.4,3.3)$) rectangle +(3.2,.5);
+    \node [mystyle, rectangle callout, callout relative pointer={(-3.5,-.5)}]
+    at ($(current page.south west) + (10,4.5)$) {la taille est indiqué};
+  \end{tikzpicture}
   \href{https://www.opengl.org/registry}{Fichier XML} définissant~: \\
   \begin{itemize}
     \item les constantes
     \item les fonctions et leurs prototypes \\
-      \scriptsize{la \textbf{taille des tableau} passée par adresse est indiqué~:}
       {\tiny%
 \begin{verbatim}
-void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void \ptr data)
+void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data)
 
 <command>
     <proto>void <name>glClearBufferData</name></proto>

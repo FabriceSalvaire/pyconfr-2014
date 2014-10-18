@@ -51,8 +51,6 @@
 
 %**** Tikz ***************************************
 
-\usepackage{transparent}
-
 \usepackage{tikz}
 \usetikzlibrary{calc,shapes,backgrounds,arrows}
 
@@ -60,8 +58,11 @@
 
 %**** Textpos ************************************
 
-\usepackage[absolute,overlay]{textpos} % ,showboxes
+\usepackage[absolute,overlay]{textpos}
+%\TPshowboxestrue
+\TPshowboxesfalse
 \TPGrid{16}{9}
+% \textblockorigin{10mm}{10mm}
 
 %**** Tabular ************************************
 

@@ -19,8 +19,8 @@ FIGURES_PDF = $(patsubst %.py, %.pdf, ${FIGURES_PY})
 #
 ####################################################################################################
 
-#LATEX_COMMAND=pdflatex
-LATEX_COMMAND=lualatex
+LATEX_COMMAND=pdflatex
+#LATEX_COMMAND=lualatex
 
 #INTERACTION=
 #INTERACTION=-interaction=batchmode
