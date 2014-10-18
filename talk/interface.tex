@@ -62,17 +62,17 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   \frametitle{Architecture}
   \begin{center}
     \begin{tikzpicture}[%
-      base/.style={rectangle, minimum width=10em, minimum height=2em, anchor=south west,
-        draw=white, line width=2pt},
+      base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
+        anchor=south west},
       double/.style={base, minimum height=4em},
-      small/.style={base, minimum width=4em, anchor=east}]
+      small/.style={base, minimum width=4em}]
       % \draw [help lines] grid(3,2);
       \node[base, fill=green!20] at (0,0) {XML Registry};
       \node[base, fill=red!20] at (0,2em) {GL API};
       \node[double, fill=blue!20] at (0,4em) {Wrapper};
-      \node[small, fill=green!20] at (2pt,5em) {ctypes}; % 2pt ???
-      \node[small, fill=red!20] at (2pt,7em) {cffi};
-      \node[double, minimum width=4em, anchor=east, fill=blue!20] at (-4em+2pt,6em) {GL};
+      \node[small, fill=green!20] at (-4em,4em) {ctypes};
+      \node[small, fill=red!20] at (-4em,6em) {cffi};
+      \node[double, minimum width=4em, fill=blue!20] at (-8em,4em) {GL};
       \node[base, fill=green!20] at (0,8em) {High Level API};
     \end{tikzpicture}
   \end{center}

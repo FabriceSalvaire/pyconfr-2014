@@ -57,7 +57,33 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
 
 % First column
 \column{0.5}
-\block{Column}{Text\\Text\\Text Text Text}
+\block{Architecture}{
+  \begin{center}
+  \begin{tikzpicture}[]
+    %\draw[help lines] (-15,-20) grid (15,20);
+    \node at (0,0) {\includegraphics[width=30cm]{images/tree.pdf}};
+    \node[rotate=5] at (-12,5) {\includegraphics[width=10cm]{images/game.jpg}};
+    \node[rotate=15] at (-8,15) {\includegraphics[width=10cm]{images/solidworks.jpg}};
+    \node[rotate=-5] at (1,15) {\includegraphics[height=10cm]{images/touchwiz.jpg}};
+    \node[rotate=-25] at (8,10) {\includegraphics[width=10cm]{images/tiger.png}};
+    \node[rotate=-15] at (12,2) {\includegraphics[width=8cm]{images/blender.jpg}};
+    \begin{scope}[xshift=-3cm, yshift=-12cm,
+      base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
+        anchor=south west},
+      double/.style={base, minimum height=4em},
+      small/.style={base, minimum width=4em}]
+      % \draw [help lines] grid(3,2);
+      \node[base, fill=green!20] at (0,0) {XML Registry};
+      \node[base, fill=red!20] at (0,2em) {GL API};
+      \node[double, fill=blue!20] at (0,4em) {Wrapper};
+      \node[small, fill=green!20] at (-4em,4em) {ctypes};
+      \node[small, fill=red!20] at (-4em,6em) {cffi};
+      \node[double, minimum width=4em, fill=blue!20] at (-8em,4em) {GL};
+      \node[base, fill=green!20] at (0,8em) {High Level API};
+    \end{scope}
+    \end{tikzpicture}
+  \end{center}
+}
 
  % Second column
 \column{0.5}
