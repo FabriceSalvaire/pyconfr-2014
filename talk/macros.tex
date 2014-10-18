@@ -1,5 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% keep tikz
+% tikzpicture ???
+
 % Redefinition, symbol included in link:
 \let\orighref\href
 %\renewcommand{\href}[2]{\orighref{#1}{#2\,\resizebox{!}{1.mm}{\faExternalLink}}} % lualatex
@@ -26,11 +29,22 @@
 \newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
 \newcommand{\bgR}{red!20!white}
 
+\newcommand{\boxR}[1]{\colorbox{red!20!white}{#1}}
+\newcommand{\boxG}[1]{\colorbox{green!20!white}{#1}}
+\newcommand{\boxB}[1]{\colorbox{blue!20!white}{#1}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pgfdeclareimage[height=2cm]{FunnyPython}{images/funny-python.png}
 \pgfdeclareimage[height=10mm]{FunnyPythonSmall}{images/funny-python.png}
 \pgfdeclareimage[height=1cm]{OpenGLLogo}{images/khronos-logos/OpenGL/OpenGL_500.jpg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\attention}{%
+  \begin{tikzpicture}
+    \node [fill=yellow!80, isosceles triangle, shape border rotate=90, inner sep=.1pt, rounded corners] {!};
+  \end{tikzpicture}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
