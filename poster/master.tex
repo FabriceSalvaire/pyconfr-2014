@@ -1,0 +1,84 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+
+% 12, 14, 17, 20, 25
+\documentclass[a0paper, portrait, 25pt,
+margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspace=8mm
+]{tikzposter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+
+\usepackage{iftex}
+
+%**** Encoding and Font **************************
+
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern} % Postscript layout of CM with T1 coding
+\else
+  \ifLuaTeX
+    \usepackage[T1]{fontenc}
+    \usepackage{lmodern} % Postscript layout of CM with T1 coding
+    \hypersetup{pdfencoding=auto}
+  \fi
+\fi
+
+%**** Language ***********************************
+
+% \usepackage[frenchb]{babel}
+%\usepackage[english]{babel}
+% \usepackage{frenchle} % compatibility?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+
+\title{Une interface expérimentale pour lier OpenGL à Python}
+\author{Fabrice~Salvaire}
+% \institute{}
+\pgfdeclareimage[height=10cm]{FunnyPython}{images/funny-python.png}
+\pgfdeclareimage[height=10cm]{OpenGLLogo}{images/OpenGL_1500.png}
+\titlegraphic{\pgfuseimage{OpenGLLogo}\pgfuseimage{FunnyPython}}
+
+\newcommand{\emailOrange}{fabrice.salvaire@orange.fr}
+\newcommand{\homePageOrange}{\url{http://fabrice-salvaire.pagesperso-orange.fr}}
+% \newcommand{\homePageGithub}{\url{http://fabricesalvaire.github.io}}
+\newcommand{\githubRepositories}{\url{http://github.com/FabriceSalvaire}}
+
+% Theme:  Default, Basic, Rays, Simple, Envelope, Wave, Board, Autumn, Desert,
+\usetheme{Board}
+% \usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+
+\begin{document}
+
+\maketitle
+
+\begin{columns}
+
+% First column
+\column{0.5}
+\block{Column}{Text\\Text\\Text Text Text}
+
+ % Second column
+\column{0.5}
+
+ % Second column - first block
+\block[]{Foo}{Test}
+
+\block[titleleft]{Contact: \emailOrange}{%
+% \homePageOrange
+  \includegraphics[width=10cm]{figures/vcard.pdf} % check data
+}
+
+\end{columns}
+\end{document}
+\endinput
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
