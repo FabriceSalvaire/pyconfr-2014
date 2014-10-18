@@ -59,6 +59,26 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \end{frame}
 
 \begin{frame}
+  \frametitle{Architecture}
+  \begin{center}
+    \begin{tikzpicture}[%
+      base/.style={rectangle, minimum width=10em, minimum height=2em, anchor=south west,
+        draw=white, line width=2pt},
+      double/.style={base, minimum height=4em},
+      small/.style={base, minimum width=4em, anchor=east}]
+      % \draw [help lines] grid(3,2);
+      \node[base, fill=green!20] at (0,0) {XML Registry};
+      \node[base, fill=red!20] at (0,2em) {GL API};
+      \node[double, fill=blue!20] at (0,4em) {Wrapper};
+      \node[small, fill=green!20] at (2pt,5em) {ctypes}; % 2pt ???
+      \node[small, fill=red!20] at (2pt,7em) {cffi};
+      \node[double, minimum width=4em, anchor=east, fill=blue!20] at (-4em+2pt,6em) {GL};
+      \node[base, fill=green!20] at (0,8em) {High Level API};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
   \frametitle{Les prototypes de fonctions en C}
   \begin{itemize}
     \item principe de base~: \\
