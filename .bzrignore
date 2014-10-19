@@ -2,15 +2,16 @@
 *.log
 *.nav
 *.out
-*.pdf
 *.snm
 *.toc
 *.vrb
 .directory
 .git	
 auto
+poster/master.pdf
 poster/poster.pdf
 talk.pdf
 talk/figures/*.pdf
 talk/images/unused
+talk/master.pdf
 test.*
