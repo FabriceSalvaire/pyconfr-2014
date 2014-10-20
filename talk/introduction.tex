@@ -45,6 +45,14 @@
   \item CPU~: usage générique
   \item SIMD AVX2 256-bit 8x float 32-bit
   }
+  \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run twice
+    \node (o1) at ($(current page.south west) + (2.5,6.25)$) {\tiny GPU core};
+    \draw[mystyle] (o1) -- ++(.5,-.5);
+    \node (o2) at ($(current page.south west) + (4.5,6.25)$) {\tiny CPU core};
+    \draw[mystyle] (o2) -- ++(1,-1);
+    \node (o3) at ($(current page.south west) + (6,3.25)$) {\tiny L3 Cache};
+    \draw[mystyle] (o3) -- ++(1,.75);
+  \end{tikzpicture}
 \end{frame}
 
 \begin{frame}
