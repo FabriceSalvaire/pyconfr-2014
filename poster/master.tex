@@ -1,11 +1,13 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 12, 14, 17, 20, 25
 \documentclass[a0paper, portrait, 25pt,
 margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspace=8mm
 ]{tikzposter}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+% A0 1189x841 2*420.5
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{iftex}
 
@@ -47,16 +49,17 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
 \usetheme{Board}
 % \usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-
+%
 \maketitle
-
+%
 \begin{columns}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % First column
-\column{0.5}
+\column{.5}
+
 \block{Architecture}{
   \begin{center}
   \begin{tikzpicture}[]
@@ -87,14 +90,43 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
   \end{center}
 }
 
- % Second column
-\column{0.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Second column
+\column{.5}
 
- % Second column - first block
-\block[]{PyDVI}{
+\block[]{PyDVI\\ a Python library to read and process DVI files}{
+  % une bibliothéque Python pour lire et ... des fichiers DVI
   \begin{center}
-    \includegraphics[width=20cm]{images/dvi-gl-viewer.png}
+    \begin{tabular}[t]{p{18cm}p{18cm}}
+      \begin{itemize}
+      \item packed font, Type 1, virtual font
+      \item TeX font metric, Adobe Font Metrics
+      \item font map
+      \item font encoding
+      \end{itemize}
+      \vspace{1em}
+      \begin{itemize}
+      \item DVI $\longrightarrow$ PNG tool
+      \item OpenGL Viewer
+      \end{itemize}
+      & 
+      \begin{center}
+        \includegraphics[width=15cm]{images/dvi-gl-viewer.png} \\[1cm]
+        \begin{tikzpicture}[%
+          base/.style={rectangle, minimum width=15em, minimum height=2em, draw=white, line width=2pt, anchor=south west},
+          demibloc/.style={base, minimum width=7.5em}]
+          \node[base, fill=green!20] at (0,0) {\LaTeX{} DVI};
+          \node[demibloc, minimum height=4em, fill=blue!20] at (0,2em) {PyDVI};
+          \node[demibloc, fill=blue!20] at (7.5em,2em) {DVI Parser};
+          \node[demibloc, fill=blue!20] at (7.5em,4em) {DVI Machine};
+          \node[base, fill=red!20] at (0,6em) {User DVI Machine};
+        \end{tikzpicture}
+      \end{center}
+    \end{tabular}
   \end{center}
+  \begin{flushright}
+    https://github.com/FabriceSalvaire/PyDVI
+  \end{flushright}
 }
 
 \block[titleleft]{Contact: \emailOrange}{%
