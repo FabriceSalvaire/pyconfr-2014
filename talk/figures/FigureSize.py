@@ -5,6 +5,11 @@ from matplotlib import rcParams
 
 ####################################################################################################
 
+# from matplotlib import verbose
+# verbose.level = 'debug-annoying'
+
+####################################################################################################
+
 # document_fontsize=14, available_width=307.28987
 def configure(document_fontsize=11, available_width=307.28987):
 
@@ -66,18 +71,19 @@ def configure(document_fontsize=11, available_width=307.28987):
     rcParams['ytick.labelsize'] = document_fontsize
     rcParams['legend.fontsize'] = document_fontsize
     rcParams['font.family'] = 'sans-serif'
-    rcParams['font.sans-serif'] = ['tgheros']
-    rcParams['font.serif'] = ['cm10']
+    rcParams['font.sans-serif'] = ['lmodern']
+    rcParams['font.serif'] = ['lmodern']
+    # cParams['mathtext.fontset'] = 'stixsans'
     rcParams['text.usetex'] = True
+    rcParams['text.latex.unicode'] = True
     rcParams['text.latex.preamble'] = r"""
-\usepackage[T1]{fontenc}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-
-\usepackage{tgheros}
-\usepackage[tx]{sfmath}
 """
     rcParams['figure.figsize'] = figsize()
 

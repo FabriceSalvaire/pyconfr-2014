@@ -41,9 +41,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% raise !
 \newcommand{\attention}{%
   \begin{tikzpicture}
-    \node [fill=yellow!80, isosceles triangle, shape border rotate=90, inner sep=.1pt, rounded corners=1.5pt] {!};
+    \node [fill=yellow!80, isosceles triangle, shape border rotate=90, inner sep=.1pt, rounded corners=1.5pt] {\textbf{!}};
+  \end{tikzpicture}}
+
+% check beamer code
+\newcommand{\numberItem}[1]{
+  \begin{tikzpicture}
+    \node[circle, fill=blue!70!black, draw=none, inner sep = .5pt] at (0,0)
+    {\textcolor{white}{\scriptsize #1}};
   \end{tikzpicture}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

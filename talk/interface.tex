@@ -116,9 +116,42 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{La classe Command}
-  
+  {\tiny
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+\begin{verbatim}
+class ParameterWrapper():
+    def __init__(self, parameter):
+
+    def from_python(self, parameter, c_parameters):
+        ...
+        return to_python_converter
+\end{verbatim}
+      \end{column}        
+      \begin{column}{.5\textwidth}
+\begin{verbatim}
+class ToPythonConverter():
+    def __init__(self, data):
+
+    def __call__(self):
+        return converted value
+\end{verbatim}
+    \end{column}
+  \end{columns}
+\begin{verbatim}
+class CommandWrapper():
+    def __init__(self, wrapper, command):
+        self._parameter_wrappers = [parameter_wrapper(parameter) for parameter in command.parameters]
+
+    def __call__(self, *args, **kwargs):
+        c_parameters = [None]*self._number_of_parameters
+        for parameter_wrapper, parameter in zip(self._parameter_wrappers, args):
+            to_python_converter = parameter_wrapper.from_python(parameter, c_parameters)
+        output_parameters = [to_python_converter() for to_python_converter in to_python_converters]
+        return output_parameters
+\end{verbatim}}
 \end{frame}
 
 \begin{frame}
@@ -165,34 +198,8 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 
 \begin{frame}
   \frametitle{Translation automatique des prototypes~: Input/Output via Pointeur}
-  \begin{enumerate}
-  \item type = \texttt{void \ptr}~: \\
-    p = Numpy array, \texttt{size = p.nbytes} \\
-    \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
-    % $\longrightarrow$ \\
-    \boxR{o0} = foo(\boxG{p1}, \boxB{p2}) \\[.5em]
-    % 
-  \item type = \texttt{char \ptr}~: \\
-    p = size, new string \\
-    \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
-    % $\longrightarrow$ \\
-    \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2}) \\[.5em]
-    % 
-  \item p = Numpy array~: check type, \texttt{size = p.size} \\
-    idem 1 \\[.5em]
-    % 
-  \item p = size~: return a Numpy array or list \\
-    idem 2
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Translation automatique des prototypes~: Input/Output via Pointeur}
     \begin{tabular}[t]{ccc}
-      \begin{tikzpicture}
-        \node[circle, fill=blue!70!black, draw=none, inner sep = 1pt] at (0,0)
-        {\textcolor{white}{\scriptsize 1}};
-      \end{tikzpicture} &
+      \numberItem{1} &
       \begin{minipage}[t]{.5\linewidth}
         type = \texttt{void \ptr}~: \\
         p = Numpy array, \texttt{size = p.nbytes}
@@ -202,10 +209,10 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
         % $\longrightarrow$ \\
         \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
       \end{minipage}
-    \end{tabular}
-  \begin{enumerate}
-  \item
-    \begin{tabular}[t]{cc}
+    \end{tabular} \\[.5em]
+    %
+    \begin{tabular}[t]{ccc}
+      \numberItem{2} &
       \begin{minipage}[t]{.5\linewidth}
         type = \texttt{char \ptr}~: \\
         p = size, new string
@@ -215,14 +222,37 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
         % $\longrightarrow$ \\
         \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
       \end{minipage}
+    \end{tabular} \\[.5em]
+    %
+    \begin{tabular}[t]{ccc}
+      \numberItem{3} &
+      \begin{minipage}[t]{.5\linewidth}
+        p = Numpy array~: \\
+        check type, \texttt{size = p.size}
+      \end{minipage} &
+      \begin{minipage}[t]{.5\linewidth}
+        idem \numberItem{1}
+      \end{minipage}
+    \end{tabular} \\[.5em]
+    %
+    \begin{tabular}[t]{ccc}
+      \numberItem{4} &
+      \begin{minipage}[t]{.5\linewidth}
+        p = size~: \\
+        return a Numpy array or list
+      \end{minipage} &
+      \begin{minipage}[t]{.5\linewidth}
+        idem \numberItem{2}
+      \end{minipage}
     \end{tabular}
-    % 
-  \item p = Numpy array~: check type, \texttt{size = p.size} \\
-    idem 1 \\[.5em]
-    % 
-  \item p = size~: return a Numpy array or list \\
-    idem 2
-  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Gestion des erreurs}
+\begin{verbatim}
+with GL.error_checker():
+  ...
+\end{verbatim}
 \end{frame}
 
 \begin{frame}

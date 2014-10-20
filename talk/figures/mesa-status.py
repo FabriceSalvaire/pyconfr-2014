@@ -7,7 +7,7 @@ import numpy as np
 ####################################################################################################
 
 from FigureSize import configure
-figure_size = configure(document_fontsize=11, available_width=307.28987)
+figure_size = configure(document_fontsize=26, available_width=307.28987)
 print 'figure size:', figure_size()
 
 ####################################################################################################
@@ -40,27 +40,37 @@ axe = figure.add_subplot(111)
 y_max = max(mesa_completion[2]) +1
 plt.ylim(0, y_max)
 
+red = '#FFCCCC'
+green = '#CCFFCC'
+blue = '#CCCCFF'
+
 bar_width = .8
-axe.bar(index, mesa_completion[2], bar_width, color='red')
-axe.bar(index, mesa_completion[1], bar_width, color='green')
+axe.bar(index, mesa_completion[2], bar_width, color=red)
+axe.bar(index, mesa_completion[1], bar_width, color=green)
 
 axe.plot(index + bar_width/2,
          mesa_completion[1]/mesa_completion[2]*y_max,
-         'o', color='blue')
+         'o', color='blue', markersize=10)
 
-# axe.xlabel('')
-# axe.ylabel('')
-# axe.title('')
+axe.set_xlabel('OpenGL API')
+axe.set_ylabel('\# extension')
+# axe.set_title('')
 
 plt.xticks(index + bar_width/2, labels)
+ticks = range(0, 30, 5)
+plt.yticks(ticks, [str(x) for x in ticks]) # hack for font
 
 axe_percent = axe.twinx()
 axe_percent.set_ylim(0, 100)
+axe_percent.set_ylabel('\% completion')
+ticks = range(0, 110, 20)
+axe_percent.set_yticklabels( [str(x) for x in ticks])
 
 figure.tight_layout(pad=0.1)
 
-# plt.show()
+#plt.show()
 figure.savefig(__file__.replace('.py', '.pdf'))
+#figure.savefig(__file__.replace('.py', '.pgf'))
 
 ####################################################################################################
 # 
