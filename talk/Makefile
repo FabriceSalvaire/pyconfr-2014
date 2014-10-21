@@ -49,7 +49,8 @@ pdf: ${JOB_NAME}.pdf
 ${JOB_NAME}.pdf: ${MASTER}.pdf
 	cp ${MASTER}.pdf ${JOB_NAME}.pdf
 
-${MASTER}.pdf: ${TEXFILES} ${FIGURES_PDF}
+#${MASTER}.pdf: ${TEXFILES} ${FIGURES_PDF}
+${MASTER}.pdf: ${TEXFILES}
 	${LATEX} ${MASTER}
 #	${LATEX} ${MASTER}
 

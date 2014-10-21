@@ -139,9 +139,11 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 
 \begin{frame}[fragile]
   \frametitle{La classe Command}
+  \begin{center}
   {\tiny
-    \begin{columns}
-      \begin{column}{.5\textwidth}
+    \begin{tabular}{c|c}
+      \begin{minipage}{.4\linewidth}
+        Python $\longrightarrow$ C
 \begin{verbatim}
 class ParameterWrapper():
     def __init__(self, parameter):
@@ -150,8 +152,10 @@ class ParameterWrapper():
         ...
         return to_python_converter
 \end{verbatim}
-      \end{column}        
-      \begin{column}{.5\textwidth}
+      \end{minipage}
+      &
+      \begin{minipage}{.4\linewidth}
+        C $\longrightarrow$ Python
 \begin{verbatim}
 class ToPythonConverter():
     def __init__(self, data):
@@ -159,8 +163,15 @@ class ToPythonConverter():
     def __call__(self):
         return converted value
 \end{verbatim}
-    \end{column}
-  \end{columns}
+      \end{minipage}
+    \end{tabular}
+  %   \begin{columns}
+  %     \begin{column}{.5\textwidth}
+  %     \end{column}        
+  %     \begin{column}{.5\textwidth}
+  %   \end{column}
+  % \end{columns}
+  \vspace{1em}
 \begin{verbatim}
 class CommandWrapper():
     def __init__(self, wrapper, command):
@@ -173,7 +184,8 @@ class CommandWrapper():
         output_parameters = [to_python_converter() for to_python_converter in to_python_converters]
         return output_parameters
 \end{verbatim}}
-  \note{
+\end{center}
+\note{
     \begin{enumerate}
     \item 
     \end{enumerate}
@@ -184,7 +196,7 @@ class CommandWrapper():
   \frametitle{Translation automatique des prototypes}
   \begin{description}[output par référence]
     \item[simple] \texttt{GLenum target} \\
-      \colorB{Python $\longrightarrow$ C}
+      \colorB{Python $\longrightarrow$ C} \\[.5em]
       % 
     \item[output par référence] \texttt{int \alert{\ptr [1]} length} \\
       \colorB{%
@@ -193,7 +205,7 @@ class CommandWrapper():
         \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
         % $\longrightarrow$ \\
         \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1})
-      }
+      } \\[.5em]
       % 
     \item[Pointeur Complexe]
       \begin{enumerate}
@@ -234,53 +246,57 @@ class CommandWrapper():
 
 \begin{frame}
   \frametitle{Translation automatique des prototypes~: Input/Output via Pointeur}
-    \begin{tabular}[t]{ccc}
-      \numberItem{1} &
-      \begin{minipage}[t]{.5\linewidth}
-        type = \texttt{void \ptr}~: \\
-        p = Numpy array, \texttt{size = p.nbytes}
-      \end{minipage} &
-      \begin{minipage}[t]{.5\linewidth}
-        \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
-        % $\longrightarrow$ \\
-        \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
-      \end{minipage}
-    \end{tabular} \\[.5em]
-    %
-    \begin{tabular}[t]{ccc}
-      \numberItem{2} &
-      \begin{minipage}[t]{.5\linewidth}
-        type = \texttt{char \ptr}~: \\
-        p = size, new string
-      \end{minipage} &
-      \begin{minipage}[t]{.5\linewidth}
-        \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
-        % $\longrightarrow$ \\
-        \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
-      \end{minipage}
-    \end{tabular} \\[.5em]
-    %
-    \begin{tabular}[t]{ccc}
-      \numberItem{3} &
-      \begin{minipage}[t]{.5\linewidth}
-        p = Numpy array~: \\
-        check type, \texttt{size = p.size}
-      \end{minipage} &
-      \begin{minipage}[t]{.5\linewidth}
-        idem \numberItem{1}
-      \end{minipage}
-    \end{tabular} \\[.5em]
-    %
-    \begin{tabular}[t]{ccc}
-      \numberItem{4} &
-      \begin{minipage}[t]{.5\linewidth}
-        p = size~: \\
-        return a Numpy array or list
-      \end{minipage} &
-      \begin{minipage}[t]{.5\linewidth}
-        idem \numberItem{2}
-      \end{minipage}
-    \end{tabular}
+  If
+  \begin{tabular}[t]{ccc}
+    \numberItem{1} &
+    \begin{minipage}[t]{.5\linewidth}
+      type = \texttt{void \ptr}~: \\
+      p = Numpy array \\
+      \texttt{size = p.nbytes}
+    \end{minipage} &
+    \begin{minipage}[t]{.5\linewidth}
+      \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
+      % $\longrightarrow$ \\
+      \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
+    \end{minipage}
+  \end{tabular} \\[.5em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{2} &
+    \begin{minipage}[t]{.5\linewidth}
+      type = \texttt{char \ptr}~: \\
+      p = size
+      \\ new string
+    \end{minipage} &
+    \begin{minipage}[t]{.5\linewidth}
+      \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
+      % $\longrightarrow$ \\
+      \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
+    \end{minipage}
+  \end{tabular} \\[.5em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{3} &
+    \begin{minipage}[t]{.5\linewidth}
+      p = Numpy array~: \\
+      check type \\
+      \texttt{size = p.size}
+    \end{minipage} &
+    \begin{minipage}[t]{.5\linewidth}
+      idem \numberItem{1}
+    \end{minipage}
+  \end{tabular} \\[.5em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{4} &
+    \begin{minipage}[t]{.5\linewidth}
+      p = size~: \\
+      return a Numpy array or list
+    \end{minipage} &
+    \begin{minipage}[t]{.5\linewidth}
+      idem \numberItem{2}
+    \end{minipage}
+  \end{tabular}
   \note{
     \begin{enumerate}
     \item 

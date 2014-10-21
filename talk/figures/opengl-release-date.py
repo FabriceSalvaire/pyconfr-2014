@@ -11,7 +11,7 @@ import numpy as np
 ####################################################################################################
 
 from FigureSize import configure
-figure_size = configure(document_fontsize=14, available_width=307.28987)
+figure_size = configure(document_fontsize=20, available_width=307.28987)
 print 'figure size:', figure_size()
 
 ####################################################################################################
@@ -61,14 +61,15 @@ mesa_releases = (
 )
 
 i965_dates = (
-    (4.1, datetime(2012, 1, 1), 'Ivy Bridge\nHD 2500/4000', (-5, 50)),
-    (4.3, datetime(2013, 1, 1), 'Haswell', (0, 50)),
+    (4.1, datetime(2012, 1, 1), 'Ivy Bridge\nHD 2500/4000', (-5, 60)),
+    (4.3, datetime(2013, 1, 1), 'Haswell', (0, 70)),
 )
 
 key_dates = (
+    ('Phigs', datetime(1990, 1, 1), (0, 80)),
     ('Microsoft\nDirect3D', datetime(1995, 1, 1), (0, 50)),
-    ('First GPU\nNvidia\nGeForce 256', datetime(1999, 10, 11), (0, 50)),
-    ('Khronos', datetime(2006, 7, 1), (-5, 25)),
+    ('First GPU\nNvidia\nGeForce 256', datetime(1999, 10, 11), (0, 80)),
+    ('Khronos', datetime(2006, 7, 1), (-15, 25)),
     ('Nvidia\nTesla', datetime(2006, 12, 31), (0, 50)),
 )
 
@@ -87,7 +88,7 @@ axe.hlines(y=1,
            xmin=mdates.date2num(datetime(1990, 1, 1)),
            xmax=mdates.date2num(datetime(1992, 1, 1)),
            linewidth=4, color='black')
-axe.text(mdates.date2num(datetime(1991, 1, 1)), 1.1,
+axe.text(mdates.date2num(datetime(1991, 1, 1)), 1.3,
          'IRIS GL',
          horizontalalignment='center', color='black')
 
@@ -122,7 +123,7 @@ for api, date, text in opengl_es_releases:
     if text is not None:
         axe.annotate(text,
                      xy=(mdates.date2num(date), api -.2),
-                     xytext=(0, -50), 
+                     xytext=(0, -70), 
                      textcoords='offset points',
                      horizontalalignment='center',
                      arrowprops=dict(facecolor='black', arrowstyle='-|>'))
@@ -136,7 +137,7 @@ for api, date, release in mesa_releases:
     #          horizontalalignment='center', color='black')
     axe.annotate('Mesa {}'.format(release),
                  xy=(mdates.date2num(date), api),
-                 xytext=(0, 50), 
+                 xytext=(0, 60), 
                  textcoords='offset points',
                  horizontalalignment='center',
                  arrowprops=dict(facecolor='black', arrowstyle='-|>'))

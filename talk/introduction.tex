@@ -7,11 +7,11 @@
       % > latex arroxw
       \draw[line width=10pt,-latex] (1.5,1) .. controls +(1,4) and +(-5,-0) .. +(10,4);
       \node at (1.5,1) {\includegraphics[scale=.1]{images/evans-sutherland.jpg}};
-      \node [anchor=south] at (1.5,0) {Evan \& Sutherland};
+      \node [anchor=south,align=center] at (1.5,0) {Evan \& Sutherland\\1970};
       \node at (3,3.25) {\includegraphics[scale=.1]{images/sgi-o2-workstation.jpg}};
-      \node [anchor=north] at (2.5,4.25) {SGI Workstation};
+      \node [anchor=north,align=center] at (2.5,4.25) {SGI Workstation\\1990-2004};
       \node at (6,4.75) {\includegraphics[scale=.5]{images/oxygen.png}};
-      \node [anchor=north] at (6,5.25) {Accélerateur Graphique};
+      \node [anchor=north] at (6,5.25) {Accélérateur Graphique};
       \node at (9,5) {\includegraphics[scale=.03]{images/nvidia-gforce.png}};
       \node [anchor=south,align=center] at (9,4.5) {Nvidia GeForce 256\\ $1^\text{er}$ GPU};
       \node [anchor=west,align=left] at (11.5,5) {\textbf{General Purpose} \\ \textbf{GPU}};
@@ -31,6 +31,7 @@
     \item des pionniers aux machines spécifiques
     \item aux stations de travail professionnels
     \item à présent plus de distinction
+    \item I. Sutherland (left) and D. Evans (right) with Line Drawing System-1. December 1969.
     \end{enumerate}
   }
 \end{frame}
@@ -44,8 +45,9 @@
       \includegraphics[height=.3\textheight]{images/intel-haswell-die.jpg} &
       \includegraphics[height=.3\textheight]{images/nvidia-kepler-die.jpg}
     \end{tabular} \\[5mm]
-    Architecture de calcule hautement parallèle \\
-    couplé à une mémoire rapide (GDDR5)
+    Architecture de calcul ($\times$, $+$) hautement parallèle \\
+    couplée à une mémoire rapide (GDDR5) \\
+    % et un interpolateur
   \end{center}
   \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run twice
     \node (o1) at ($(current page.south west) + (2.5,6.25)$) {\tiny GPU core};
@@ -71,19 +73,24 @@
   % keywords picture
   % pgf mindmap cf. p75
   \begin{columns}
-    \begin{column}{.25\textwidth}
+    \begin{column}{.2\textwidth}
       \begin{center}
         \includegraphics[width=1.\textwidth]{images/game.jpg} \\[5mm]
         \includegraphics[width=1.\textwidth]{images/blender.jpg}
       \end{center}
     \end{column}
-    \begin{column}{.25\textwidth}
+    \begin{column}{.2\textwidth}
       \begin{center}
         \includegraphics[width=1.\textwidth]{images/solidworks.jpg} \\[5mm]
         \includegraphics[width=.8\textwidth]{images/tiger.jpg}
       \end{center}
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}[t]{.1\textwidth}
+      \begin{center}
+        \includegraphics[width=1.\textwidth]{images/touchwiz.jpg}
+      \end{center}
+    \end{column}
+    \begin{column}{.4\textwidth}
       \begin{itemize}
       \item Moteur de jeu % Game Engine
       \item Modeleur \textbf{3D}
@@ -137,14 +144,29 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Évolution de l'API OpenGL}
-  \begin{center}
-    \includegraphics[width=.6\textwidth]{figures/opengl-release-date.pdf} % ,transparent
-  \end{center}
+  \frametitle{Évolution de l'API OpenGL~: 20 ans d'existence}
+  \begin{columns}
+    \begin{column}{.65\textwidth}
+      \begin{center}
+        \includegraphics[width=1.\textwidth]{figures/opengl-release-date.pdf} % ,transparent
+      \end{center}
+    \end{column}
+    \begin{column}{.35\textwidth}
+      déphasage entre \\
+      \begin{itemize}
+      \item OpenGL
+      \item Harware
+      \item Mesa
+      \item machine de l'utilisateur
+      \end{itemize}
+      \alert{Quelle API choisir?}
+    \end{column}
+  \end{columns}
   \note{
     \begin{enumerate}
     \item 20 ans d'histoire
     \item dynamique des releases
+    \item concept d'extension pour expérimenter
     \end{enumerate}
   }
 \end{frame}
@@ -153,17 +175,19 @@
   \frametitle{Programmable Pipeline}
   \begin{columns}
     \begin{column}{.5\textwidth}
-      
     \end{column}
     \begin{column}{.5\textwidth}
+      \begin{center}
+        Shader
+        % \framebox
 {\small
 \begin{Verbatim}[commandchars=\\\{\}]
-uniform mat4 model_view_matrix;
-uniform mat3 normal_matrix;
-uniform usampler2D texture0;
+\boxR{uniform} mat4 model_view_matrix;
+\boxR{uniform} mat3 normal_matrix;
+\boxR{uniform} usampler2D texture0;
 
-in vec3 position;
-in vec3 normal;
+\boxG{in} vec3 position;
+\boxG{in} vec3 normal;
 
 \boxB{out} vec4 fragment_colour;
 
@@ -174,8 +198,14 @@ void main()
 \}
 \end{Verbatim}
 }
+      \end{center}
     \end{column}
   \end{columns}
+  \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run % twice
+    \node (o1) at ($(current page.south west) + (5,6)$) {Numpy Array};
+    \draw[mystyle] (o1) -- ($(current page.south west) + (8,6)$);
+    \draw[mystyle] (o1) -- ($(current page.south west) + (8,4.5)$);
+  \end{tikzpicture}
   \note{
     \begin{enumerate}
     \item expliquer le passage fixed pipeline $\longrightarrow$ programmable pipeline
@@ -188,6 +218,7 @@ void main()
 \begin{frame}
   \frametitle{Implémentations}
   \begin{center}
+    Status de Mesa pour l'Intel HD Graphics (core i3/5/7) \\[.5em]
     \includegraphics[width=.6\textwidth]{figures/mesa-status.pdf} % ,transparent
   \end{center}
   \note{
@@ -288,7 +319,7 @@ void main()
       \begin{itemize}
       \item \textbf{compatibilité ascendante avec la V2.x}
       \item implémente un parser de fichier d'en-tête
-      \item PyOpenGL~: 2000 fichiers \small({\emph{en comptant les extensions})}
+      \item PyOpenGL
       \item PyOpenGL-accelerate
       \end{itemize}
     \end{description}
@@ -326,7 +357,7 @@ return name.value[:int(name_length[0])]
     Résumé~:
     \begin{itemize}
     \item une longue histoire
-    \item un code source touffue
+    \item un code source touffue~: 2000 fichiers \small({\emph{en comptant les extensions})}
     \item Python et OpenGL ont évolué
     \item pas d'API de haut niveau pour l'OpenGL moderne % l'API 
     \end{itemize}
