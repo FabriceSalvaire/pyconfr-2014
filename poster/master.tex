@@ -1,35 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 12, 14, 17, 20, 25
 \documentclass[a0paper, portrait, 25pt,
 margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspace=8mm
 ]{tikzposter}
 
+% font size: 12, 14, 17, 20, 25
+
 % A0 1189x841 2*420.5
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
 
-\usepackage{iftex}
-
-%**** Encoding and Font **************************
-
-\ifPDFTeX
-  \usepackage[utf8]{inputenc}
-  \usepackage[T1]{fontenc}
-  \usepackage{lmodern} % Postscript layout of CM with T1 coding
-\else
-  \ifLuaTeX
-    \usepackage[T1]{fontenc}
-    \usepackage{lmodern} % Postscript layout of CM with T1 coding
-    \hypersetup{pdfencoding=auto}
-  \fi
-\fi
-
-%**** Language ***********************************
-
-% \usepackage[frenchb]{babel}
-%\usepackage[english]{babel}
-% \usepackage{frenchle} % compatibility?
+\input{packages}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
 
@@ -45,9 +26,7 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
 % \newcommand{\homePageGithub}{\url{http://fabricesalvaire.github.io}}
 \newcommand{\githubRepositories}{\url{http://github.com/FabriceSalvaire}}
 
-% Theme:  Default, Basic, Rays, Simple, Envelope, Wave, Board, Autumn, Desert,
-\usetheme{Board}
-% \usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
+\input{settings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -64,7 +43,6 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
   \begin{center}
   \begin{tikzpicture}[]
     %\draw[help lines] (-15,-20) grid (15,20);
-
     \node at (0,0) {\includegraphics[width=30cm]{images/tree.pdf}};
     \node at (-12,5) {\includegraphics[width=10cm]{images/game.jpg}};
     \node at (-8,15) {\includegraphics[width=10cm]{images/solidworks.jpg}};
@@ -72,6 +50,35 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
     \node at (8,10) {\includegraphics[width=10cm]{images/tiger.png}};
     \node at (12,2) {\includegraphics[width=8cm]{images/blender.jpg}};
     \node at (-14,-6) {\includegraphics[width=6cm]{images/nvidia-kepler-die.jpg}};
+    \begin{scope}[xshift=-3cm, yshift=-12cm,
+      base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
+        anchor=south west},
+      double/.style={base, minimum height=4em},
+      small/.style={base, minimum width=4em}]
+      % \draw [help lines] grid(3,2);
+      \node[base, fill=green!20] at (0,0) {XML Registry};
+      \node[base, fill=red!20] at (0,2em) {GL API};
+      \node[double, fill=blue!20] at (0,4em) {Wrapper};
+      \node[small, fill=green!20] at (-4em,4em) {ctypes};
+      \node[small, fill=red!20] at (-4em,6em) {cffi};
+      \node[double, minimum width=4em, fill=blue!20] at (-8em,4em) {GL};
+      \node[base, fill=green!20] at (0,8em) {High Level API};
+    \end{scope}
+    \end{tikzpicture}
+  \end{center}
+}
+
+\block{Architecture}{
+  \begin{center}
+  \begin{tikzpicture}[]
+    %\draw[help lines] (-15,-20) grid (15,20);
+    \node at (0,0) {\includegraphics[width=30cm]{../images/Adansonia_grandidieri04.jpg}};
+    \node at (-12,5) {\includegraphics[width=7cm]{images/game.jpg}};
+    \node at (-8,15) {\includegraphics[width=7cm]{images/solidworks.jpg}};
+    \node at (1,15) {\includegraphics[height=7cm]{images/touchwiz.jpg}};
+    \node at (8,10) {\includegraphics[width=7cm]{images/tiger.png}};
+    \node at (12,2) {\includegraphics[width=7cm]{images/blender.jpg}};
+    \node at (-14,-6) {\includegraphics[width=7cm]{images/nvidia-kepler-die.jpg}};
     \begin{scope}[xshift=-3cm, yshift=-12cm,
       base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
         anchor=south west},
@@ -98,20 +105,26 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
   % une bibliothéque Python pour lire et ... des fichiers DVI
   \begin{center}
     \begin{tabular}[t]{p{18cm}p{18cm}}
+      \begin{minipage}[t]{17cm}
+        \begin{itemize}
+        \item DVI $\longrightarrow$ PNG tool
+        \item OpenGL Viewer \\
+          Font Map Texture \\[.5em]
+        \includegraphics[width=8em]{images/font-map.png}
+        \end{itemize}
+      \end{minipage}
+      & 
+      \begin{center}
+        \includegraphics[width=15em]{images/dvi-gl-viewer.png}
+      \end{center} \\[1cm]
       \begin{itemize}
       \item packed font, Type 1, virtual font
       \item TeX font metric, Adobe Font Metrics
       \item font map
       \item font encoding
       \end{itemize}
-      \vspace{1em}
-      \begin{itemize}
-      \item DVI $\longrightarrow$ PNG tool
-      \item OpenGL Viewer
-      \end{itemize}
-      & 
+      &
       \begin{center}
-        \includegraphics[width=15cm]{images/dvi-gl-viewer.png} \\[1cm]
         \begin{tikzpicture}[%
           base/.style={rectangle, minimum width=15em, minimum height=2em, draw=white, line width=2pt, anchor=south west},
           demibloc/.style={base, minimum width=7.5em}]
