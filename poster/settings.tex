@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Theme:  Default, Basic, Rays, Simple, Envelope, Wave, Board, Autumn, Desert,
+
+\definecolorstyle{Fabrice}{
+  % Define default colors
+  % BlueGrayOrange
+  \definecolor{colorOne}{HTML}{116699}
+  \definecolor{colorTwo}{HTML}{CCCCCC}
+  \definecolor{colorThree}{HTML}{CC6633}
+}{
+  % Background Colors
+  \colorlet{backgroundcolor}{colorOne!40!white}
+  \colorlet{framecolor}{colorTwo}
+  % Title Colors
+  \colorlet{titlefgcolor}{black}
+  \colorlet{titlebgcolor}{white}
+  % Block Colors
+  \colorlet{blocktitlebgcolor}{colorTwo!70!black}
+  \colorlet{blocktitlefgcolor}{colorOne}
+  % \colorlet{blockbodybgcolor}{white!90!colorTwo}
+  \colorlet{blockbodybgcolor}{white}
+  \colorlet{blockbodyfgcolor}{black}
+  % Innerblock Colors
+  \colorlet{innerblocktitlebgcolor}{colorThree}
+  \colorlet{innerblocktitlefgcolor}{white}
+  \colorlet{innerblockbodybgcolor}{white}
+  \colorlet{innerblockbodyfgcolor}{black}
+  % Note colors
+  \colorlet{notefgcolor}{black}
+  \colorlet{notebgcolor}{colorThree!50!white}
+  \colorlet{notefrcolor}{colorThree!50!white}
+}
+
+\defineblockstyle{MyTornOut}{
+  titlewidthscale=1, bodywidthscale=1, titlecenter,
+  titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
+  bodyverticalshift=-1.2cm, roundedcorners=0, linewidth=3pt,
+  titleinnersep=1cm, bodyinnersep=1cm
+}{
+  \ifBlockHasTitle%
+  \coordinate (topright) at (blocktitle.north east);
+  \else
+  \coordinate (topright) at (blockbody.north east);
+  \fi%
+  \draw[color=blocktitlebgcolor, fill=blockbodybgcolor, %
+  line width=\blocklinewidth, drop shadow={shadow xshift=0.2cm, shadow yshift=-0.2cm, opacity=0.3}, %
+  decorate, decoration={random steps, segment length=15mm, amplitude=3mm}
+  ] (blockbody.south west) rectangle (topright); %
+}
+
+\definelayouttheme{Fabrice}{
+  \usecolorstyle{Fabrice}
+  \usebackgroundstyle{Empty}
+  \usetitlestyle{Empty}
+  \useblockstyle{MyTornOut}
+  \useinnerblockstyle{Default}
+  \usenotestyle{Sticky}
+}
+
+\usetheme{Fabrice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "master"
+%%% End: 
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
