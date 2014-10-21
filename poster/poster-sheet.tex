@@ -1,0 +1,22 @@
+% pdfposter -200x287mm -pA0 euroscipy-2013-poster.pdf out.pdf
+% pdfposter -v -p3x3A3 -mA3 -p840x1188mm euroscipy-2013-poster.pdf poster-A3.pdf
+\documentclass{article}
+% Support for PDF inclusion 
+\usepackage[final]{pdfpages}
+% Support for PDF scaling
+\usepackage{graphicx}
+\usepackage[pdftex]{geometry}
+\geometry{
+   paperwidth=297mm, % 297 - 20
+   paperheight=420mm, % 210*2 = 420 - 20
+   top=10mm,
+   bottom=10mm,
+   left=10mm,
+   right=10mm,
+   nohead
+}
+% \usepackage[cam,a4,center,dvips]{crop}
+\begin{document}
+% Globals: include all pages, don't auto scale
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{poster-A3.pdf}
+\end{document}
