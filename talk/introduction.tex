@@ -268,8 +268,8 @@ void main() \{
   \frametitle{Outils pour interfacer du code C avec Python}
   \begin{center}
     % \begin{tabular}{|c|c|c|}
-    \begin{tabular}{ccc}
-      & Avantages & Inconvénients \\[.5em]
+    \begin{tabular}{lccc}
+      & Avantages & Inconvénients & Pypy \\[.5em]
       %
       API C Python &
       \begin{minipage}[t]{.2\linewidth}
@@ -282,27 +282,31 @@ void main() \{
         \tiny
         \begin{itemize}
         \item implémentation manuelle
+        \item requiert un compilateur
         \end{itemize}
-      \end{minipage} \\[1em] % ???
+      \end{minipage} &
+      \textcolor{orange}{Non} \\[1em] % ???
       %
-      SWIG &
+      \begin{minipage}[t]{2cm}
+        SWIG \\
+        \tiny{$=$ API C automatisé}
+      \end{minipage} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
-        \item \textbf{supporte \Cpp}
         \item \textbf{header parser}
+        \item \textbf{supporte \Cpp}
         \item multi-langages
         \end{itemize}
       \end{minipage} &
       \begin{minipage}[t]{.45\linewidth}
         \tiny
         \begin{itemize}
-        \item pas optimisé pour un langage (Python)
         \item le mécanisme de macros (typemap) engendre du code bloat
-        \item requiert un compilateur
-        \item pypy ne supporte pas l'API C
+        \item pas optimisé pour un langage
         \end{itemize}
-      \end{minipage} \\[1em] % ???
+      \end{minipage} &
+      \textcolor{orange}{Non} \\[1em] % ???
       %
       Ctypes &
       \begin{minipage}[t]{.2\linewidth}
@@ -314,17 +318,18 @@ void main() \{
       \begin{minipage}[t]{.45\linewidth}
         \tiny
         \begin{itemize}
-          \item non supporté par pypy
+          \item pas d'header parser
+          \item pas d'API level
         \end{itemize}
-      \end{minipage} \\[1em]
+      \end{minipage} &
+      \textcolor{red}{Non} \\[1em]
       %
       Cffi &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
         \item \textbf{header parser}
-        \item \textbf{ABI et API}
-        \item \textbf{supporté par pypy}
+        \item \textbf{ABI et API level}
         \end{itemize}
       \end{minipage} &
       \begin{minipage}[t]{.45\linewidth}
@@ -332,10 +337,13 @@ void main() \{
         \begin{itemize}
         \item ???
         \end{itemize}
-      \end{minipage}
-    \end{tabular} \\[1em]
+      \end{minipage} &
+    \textcolor{green}{Oui}
+    \end{tabular} \\[2em]
     \alert{Cffi est la solution idéale pour interfacer du C} \\[.5em]
-    \alert{SWIG est une solution pour interfacer du \Cpp}
+    \alert{SWIG est une solution pour interfacer du \Cpp} \\[.5em]
+    % \alert{L'idéale pour \Cpp{} est la réflexion}
+    \alert{mais l'idéale serait la réflexion}
   \end{center}
   %%%%%%%%%%
   \note{

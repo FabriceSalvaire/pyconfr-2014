@@ -142,15 +142,15 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{La classe Command}
-  \begin{center}
-    {\tiny
+  \frametitle{La classe Command (simplifié)}
+  {\tiny
+    \begin{center}
       \begin{tabular}{c|c}
         \begin{minipage}[t]{.4\linewidth}
           \centerline{Python $\longrightarrow$ C}
           \vspace{1em}
-\begin{verbatim}
-class ParameterWrapper():
+\begin{Verbatim}[commandchars=\\\{\}]
+class \colorR{ParameterWrapper}():
 
     def __init__(self, parameter):
         ...
@@ -158,42 +158,44 @@ class ParameterWrapper():
     def from_python(self, parameter, c_parameters):
         ...
         return to_python_converter
-\end{verbatim}
+\end{Verbatim}
       \end{minipage}
       &
       \begin{minipage}[t]{.25\linewidth}
         \centerline{C $\longrightarrow$ Python}
         \vspace{1em}
-\begin{verbatim}
-class ToPythonConverter():
+\begin{Verbatim}[commandchars=\\\{\}]
+class \colorG{ToPythonConverter}():
 
     def __init__(self, data):
         ...
 
     def __call__(self):
+        ...
         return converted value
-\end{verbatim}
+\end{Verbatim}
       \end{minipage}
     \end{tabular}
     \\[1em]
     \rule{.8\textwidth}{.5pt}
     \\[1em]
     \begin{minipage}{.8\linewidth}
-\begin{verbatim}
-class CommandWrapper():
+\begin{Verbatim}[commandchars=\\\{\}]
+class \colorB{CommandWrapper}():
 
     def __init__(self, wrapper, command):
-        self._parameter_wrappers = [parameter_wrapper(parameter) for parameter in command.parameters]
+        self._parameter_wrappers = [\colorR{parameter_wrapper}(parameter) for parameter in command.parameters]
 
-    def __call__(self, *args, **kwargs):
+    def \colorB{__call__}(self, *args, **kwargs):
         c_parameters = [None]*self._number_of_parameters
+
         for parameter_wrapper, parameter in zip(self._parameter_wrappers, args):
-            to_python_converter = parameter_wrapper.from_python(parameter, c_parameters)
-        output_parameters = [to_python_converter() for to_python_converter in to_python_converters]
-        return output_parameters
-\end{verbatim}}
+            to_python_converter = \colorR{parameter_wrapper.from_python}(parameter, c_parameters)
+
+        return [\colorG{to_python_converter()} for to_python_converter in to_python_converters]
+\end{Verbatim}
     \end{minipage}
-  \end{center}
+  \end{center}}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
@@ -205,22 +207,25 @@ class CommandWrapper():
 \begin{frame}
   \frametitle{Translation automatique des prototypes}
   \begin{description}[output par référence]
-    \item[simple] \texttt{GLenum target} \\
-      \colorB{Python $\longrightarrow$ C} \\[.5em]
+    \item[simple] \texttt{GLenum target} \\[1em]
+      % \colorB{Python $\longrightarrow$ C} \\[.5em]
       % 
     \item[output par référence] \texttt{int \alert{\ptr [1]} length} \\
       \colorB{%
-        C  $\longrightarrow$ Python \\
+        % C  $\longrightarrow$ Python \\
         % retourné dans l'ordre d'apparition \\[.5em]
         \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
         % $\longrightarrow$ \\
         \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1})
-      } \\[.5em]
+      } \\[1em]
       % 
     \item[Pointeur Complexe]
+      If
       \begin{enumerate}
       \item type = \texttt{const char \ptr}
-      \item p = Numpy array~: check type if type not void
+      \item p = Numpy array~: \\
+        check type if type not void \\
+      \attention{} \alert{XML est incomplet~: la formule n'est pas indiqué}
       \end{enumerate}
   \end{description}
   %%%%%%%%%%
@@ -264,60 +269,60 @@ class CommandWrapper():
 \begin{frame}
   \frametitle{Translation automatique des prototypes~: Input/Output via Pointeur}
   If \\
-  %\begin{center}
-    \begin{tabular}[t]{ccc}
-      \numberItem{1} &
-      \begin{minipage}[t]{.4\linewidth}
-        type = \texttt{void \ptr}~: \\
-        p = Numpy array \\
-        \texttt{size = p.nbytes}
-      \end{minipage} &
-      \begin{minipage}[t]{.4\linewidth}
-        \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
-        % $\longrightarrow$ \\
-        \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
-      \end{minipage}
-    \end{tabular} \\[.4em]
-    % 
-    \begin{tabular}[t]{ccc}
-      \numberItem{2} &
-      \begin{minipage}[t]{.4\linewidth}
-        type = \texttt{char \ptr}~: \\
-        p = size
-        \\ new string
-      \end{minipage} &
-      \begin{minipage}[t]{.4\linewidth}
-        \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
-        % $\longrightarrow$ \\
-        \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
-      \end{minipage}
-    \end{tabular} \\[.4em]
-    % 
-    \begin{tabular}[t]{ccc}
-      \numberItem{3} &
-      \begin{minipage}[t]{.4\linewidth}
-        p = Numpy array~: \\
-        check type \\
-        \texttt{size = p.size}
-      \end{minipage} &
-      \begin{minipage}[t]{.4\linewidth}
-        idem \numberItem{1}
-      \end{minipage}
-    \end{tabular} \\[.4em]
-    % 
-    \begin{tabular}[t]{ccc}
-      \numberItem{4} &
-      \begin{minipage}[t]{.4\linewidth}
-        else~: \\
-        p = size \\
-        new Numpy array or list
-      \end{minipage} &
-      \begin{minipage}[t]{.4\linewidth}
-        idem \numberItem{2}
-      \end{minipage}
-    \end{tabular}
+  % \begin{center}
+  \begin{tabular}[t]{ccc}
+    \numberItem{1} &
+    \begin{minipage}[t]{.4\linewidth}
+      type = \texttt{void \ptr}~: \\
+      p = Numpy array \\
+      \texttt{size = p.nbytes}
+    \end{minipage} &
+    \begin{minipage}[t]{.4\linewidth}
+      \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
+      % $\longrightarrow$ \\
+      \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
+    \end{minipage}
+  \end{tabular} \\[.4em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{2} &
+    \begin{minipage}[t]{.4\linewidth}
+      type = \texttt{char \ptr}~: \\
+      p = size
+      \\ new string
+    \end{minipage} &
+    \begin{minipage}[t]{.4\linewidth}
+      \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
+      % $\longrightarrow$ \\
+      \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
+    \end{minipage}
+  \end{tabular} \\[.4em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{3} &
+    \begin{minipage}[t]{.4\linewidth}
+      p = Numpy array~: \\
+      check type \\
+      \texttt{size = p.size}
+    \end{minipage} &
+    \begin{minipage}[t]{.4\linewidth}
+      idem \numberItem{1}
+    \end{minipage}
+  \end{tabular} \\[.4em]
+  % 
+  \begin{tabular}[t]{ccc}
+    \numberItem{4} &
+    \begin{minipage}[t]{.4\linewidth}
+      else~: \\
+      p = size \\
+      new Numpy array or list
+    \end{minipage} &
+    \begin{minipage}[t]{.4\linewidth}
+      idem \numberItem{2}
+    \end{minipage}
+  \end{tabular}
   % \end{center}
-  %%%%%%%%%%
+  %%%%%%%%%% 
   \note{
     \begin{enumerate}
     \item 
