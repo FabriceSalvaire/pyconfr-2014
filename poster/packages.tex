@@ -1,5 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{hyperref}
 \usepackage{iftex}
 
 %**** Encoding and Font **************************
@@ -12,7 +13,7 @@
   \ifLuaTeX
     \usepackage[T1]{fontenc}
     \usepackage{lmodern} % Postscript layout of CM with T1 coding
-    \hypersetup{pdfencoding=auto}
+    % \hypersetup{pdfencoding=auto}
   \fi
 \fi
 
@@ -21,6 +22,11 @@
 % \usepackage[frenchb]{babel}
 %\usepackage[english]{babel}
 % \usepackage{frenchle} % compatibility?
+
+%*************************************************
+
+%\usepackage{alltt}
+\usepackage{fancyvrb}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%

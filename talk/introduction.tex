@@ -26,6 +26,7 @@
     \item des plateformes~: de l'embarqué au super-calculateur 
     \end{itemize}
   \end{textblock}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item des pionniers aux machines spécifiques
@@ -57,6 +58,7 @@
     \node (o3) at ($(current page.south west) + (6,3.25)$) {\tiny L3 Cache};
     \draw[mystyle] (o3) -- ++(1,.75);
   \end{tikzpicture}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item c'est quoi un GPU
@@ -103,6 +105,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
       \item Qu'est ce que l'on peut faire avec un GPU?
@@ -113,7 +116,6 @@
 
 \begin{frame}
   \frametitle{Présentation de l'API OpenGL}
-  % même titre que ...
   \begin{columns}
     \begin{column}{.2\textwidth}
       \begin{center}
@@ -135,6 +137,7 @@
       \end{itemize}
     \end{column}
   \end{columns}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item C'est quoi OpenGL?
@@ -146,22 +149,27 @@
 \begin{frame}
   \frametitle{Évolution de l'API OpenGL~: 20 ans d'existence}
   \begin{columns}
-    \begin{column}{.65\textwidth}
+    \begin{column}{.7\textwidth}
       \begin{center}
         \includegraphics[width=1.\textwidth]{figures/opengl-release-date.pdf} % ,transparent
       \end{center}
     \end{column}
-    \begin{column}{.35\textwidth}
-      déphasage entre \\
+    \begin{column}{.3\textwidth}
+      \textbf{Déphasage} entre \\
       \begin{itemize}
       \item OpenGL
-      \item Harware
-      \item Mesa
+      \item Hardware
       \item machine de l'utilisateur
+      \item Mesa
+      \item programmeur
       \end{itemize}
       \alert{Quelle API choisir?}
     \end{column}
   \end{columns}
+    \begin{center}
+      \alert{Toujours actif, mais concurrencé~: DirectX 12, AMD Mantle, Apple Metal \ldots}
+    \end{center}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item 20 ans d'histoire
@@ -171,16 +179,57 @@
   }
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Programmable Pipeline}
+\begin{frame}
+  \frametitle{Implémentations}
   \begin{columns}
     \begin{column}{.5\textwidth}
+      \begin{center}
+        Status de Mesa pour l'Intel HD Graphics {\tiny (*)} \\[.5em]
+        \includegraphics[width=1.\textwidth]{figures/mesa-status.pdf} \\ % ,transparent
+      \end{center}
+      {\tiny (*) core i3/5/7}
     \end{column}
     \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Extensions~: \\
+        ensemble de nouvelles fonctions \\
+        avant leurs intégrations dans l'API core
+      \item Mesa~: OpenGL sous Linux
+      \item Nvidia implémente 99,9\,\% de l'API % driver
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  %%%%%%%%%%
+  \note{
+    \begin{enumerate}
+    \item Quelle API cibler pour développer une application?
+    \end{enumerate}
+  }
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Programmable Pipeline}
+  \begin{center}
+    OpenGL Moderne $=$ Calcul Générique $+$ Graphic Stuffs
+  \end{center}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item programme~: shader
+      \item constantes~: \boxR{uniform} \\
+        e.g.\ float, matrice \\
+        interpolateur d'images 1D/2D/3D
+      \item données~: \boxG{in} \\
+        vecteur 1D/2D/3D
+      \item résultat~: \boxB{out}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.4\textwidth}
       \begin{center}
         Shader
+        \rule{\textwidth}{1pt}
         % \framebox
-{\small
+{\scriptsize
 \begin{Verbatim}[commandchars=\\\{\}]
 \boxR{uniform} mat4 model_view_matrix;
 \boxR{uniform} mat3 normal_matrix;
@@ -191,8 +240,7 @@
 
 \boxB{out} vec4 fragment_colour;
 
-void main()
-\{
+void main() \{
   ...
   fragment_colour = ...;
 \}
@@ -202,28 +250,16 @@ void main()
     \end{column}
   \end{columns}
   \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run % twice
-    \node (o1) at ($(current page.south west) + (5,6)$) {Numpy Array};
-    \draw[mystyle] (o1) -- ($(current page.south west) + (8,6)$);
-    \draw[mystyle] (o1) -- ($(current page.south west) + (8,4.5)$);
+    \node (o1) at ($(current page.south west) + (7,5)$) {Numpy Array};
+    \draw[mystyle] (o1) -- ($(current page.south west) + (9,5)$);
+    \draw[mystyle] (o1) -- ($(current page.south west) + (9,3.5)$);
   \end{tikzpicture}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item expliquer le passage fixed pipeline $\longrightarrow$ programmable pipeline
     \item concepts
     \item comment on utilise OpenGL depuis Python
-    \end{enumerate}
-  }
-\end{frame}
-
-\begin{frame}
-  \frametitle{Implémentations}
-  \begin{center}
-    Status de Mesa pour l'Intel HD Graphics (core i3/5/7) \\[.5em]
-    \includegraphics[width=.6\textwidth]{figures/mesa-status.pdf} % ,transparent
-  \end{center}
-  \note{
-    \begin{enumerate}
-    \item Quelle API cibler pour développer une application?
     \end{enumerate}
   }
 \end{frame}
@@ -301,6 +337,7 @@ void main()
     \alert{Cffi est la solution idéale pour interfacer du C} \\[.5em]
     \alert{SWIG est une solution pour interfacer du \Cpp}
   \end{center}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item
@@ -329,6 +366,7 @@ void main()
     \item[\href{http://www.pyglet.org}{Pyglet}] a cross-platform windowing and multimedia library
     \item[\href{http://vispy.org}{Vispy}] a high-performance interactive 2D/3D data visualization library
     \end{description}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item
@@ -361,6 +399,7 @@ return name.value[:int(name_length[0])]
     \item Python et OpenGL ont évolué
     \item pas d'API de haut niveau pour l'OpenGL moderne % l'API 
     \end{itemize}
+  %%%%%%%%%%
   \note{
     \begin{enumerate}
     \item Pourquoi réimplémenter OpenGL

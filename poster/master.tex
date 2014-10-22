@@ -11,6 +11,7 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
 
 \input{packages}
+\input{macros}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
 
@@ -39,34 +40,98 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
 % First column
 \column{.5}
 
-\block{Architecture}{
-  \begin{center}
-  \begin{tikzpicture}[]
-    %\draw[help lines] (-15,-20) grid (15,20);
-    \node at (0,0) {\includegraphics[width=30cm]{images/tree.pdf}};
-    \node at (-12,5) {\includegraphics[width=10cm]{images/game.jpg}};
-    \node at (-8,15) {\includegraphics[width=10cm]{images/solidworks.jpg}};
-    \node at (1,15) {\includegraphics[height=10cm]{images/touchwiz.jpg}};
-    \node at (8,10) {\includegraphics[width=10cm]{images/tiger.png}};
-    \node at (12,2) {\includegraphics[width=8cm]{images/blender.jpg}};
-    \node at (-13,-6) {\includegraphics[width=4cm]{images/nvidia-kepler-die.jpg}};
-    \begin{scope}[xshift=-3cm, yshift=-12cm,
-      base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
-        anchor=south west},
-      double/.style={base, minimum height=4em},
-      small/.style={base, minimum width=4em}]
-      % \draw [help lines] grid(3,2);
-      \node[base, fill=green!20] at (0,0) {XML Registry};
-      \node[base, fill=red!20] at (0,2em) {GL API};
-      \node[double, fill=blue!20] at (0,4em) {Wrapper};
-      \node[small, fill=green!20] at (-4em,4em) {ctypes};
-      \node[small, fill=red!20] at (-4em,6em) {cffi};
-      \node[double, minimum width=4em, fill=blue!20] at (-8em,4em) {GL};
-      \node[base, fill=green!20] at (0,8em) {High Level API};
-    \end{scope}
-    \end{tikzpicture}
-  \end{center}
+\block{OpenGL~: C'est quoi?}{
+  \begin{minipage}{.2\linewidth}
+    \begin{center}
+      \includegraphics[width=.8\textwidth]{images/khronos-logos/OpenGL/OpenGL_500.jpg} \\
+      \includegraphics[width=.8\textwidth]{images/khronos-logos/OpenGL_ES/OpenGL-ES_500.jpg} \\
+      \includegraphics[width=.8\textwidth]{images/khronos-logos/WebGL/WebGL_500.jpg} \\
+      \includegraphics[width=.8\textwidth]{images/khronos-logos/Khronos_Group/Khronos_Group_500.jpg}
+    \end{center}
+  \end{minipage}
+  \begin{minipage}{.8\linewidth}
+    \begin{itemize}
+    \item Un standard \textbf{ouvert} piloté par le groupe Khronos
+    \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
+    \item L'API de facto de GNU/Linux et d'Android
+    \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES)
+    \item et aussi orientée web (WebGL)
+    \end{itemize}
+  \end{minipage}
 }
+
+\block{XML API Registry}{
+  % \begin{tikzpicture}[remember picture, overlay, mystyle/.style={fill=red!20, opacity=1.}] % run twice
+  %   \fill[mystyle] ($(current page.south west) + (2.4,3.3)$) rectangle +(3.2,.5);
+  %   \node [mystyle, rectangle callout, callout relative pointer={(-3.5,-.5)}]
+  %   at ($(current page.south west) + (10,4.5)$) {la taille est indiqué};
+  % \end{tikzpicture}
+  Fichier XML définissant~:
+  % https://www.opengl.org/registry
+  \begin{itemize}
+    \item les constantes
+    \item les fonctions et leurs prototypes \\[.5em]
+      \footnotesize{\code{%
+void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data) \\[1em]
+<command> \\
+% \hspace{1cm}
+\rule{2em}{0pt} <proto>void <name>glClearBufferData</name></proto> \\
+\rule{2em}{0pt} \ldots \\
+\rule{2em}{0pt} <param><ptype>GLenum</ptype> <name>format</name></param> \\
+\rule{2em}{0pt} <param><ptype>GLenum</ptype> <name>type</name></param> \\
+\rule{2em}{0pt} <param len="COMPSIZE(format,type)">const void *<name>data</name></param> \\
+</command>
+}}
+% \begin{Verbatim}[commandchars=\\\{\}]
+%  void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data)
+%
+% <command>
+%     <proto>void <name>glClearBufferData</name></proto>
+%     ...
+%     <param><ptype>GLenum</ptype> <name>format</name></param>
+%     <param><ptype>GLenum</ptype> <name>type</name></param>
+%     <param len="COMPSIZE(format,type)">const void *<name>data</name></param>
+% </command>
+% \end{Verbatim}}
+    \item les extensions
+    \item les \textbf{versions} et leurs \textbf{profiles}
+  \end{itemize}
+  \centerline{\colorR{$\longrightarrow$ Apporte des informations essentielles par rapport au fichier d'en-tête}}
+  \note{
+    \begin{enumerate}
+    \item 
+    \end{enumerate}
+  }
+}
+
+% \block{Architecture}{
+%   \begin{center}
+%   \begin{tikzpicture}[]
+%     %\draw[help lines] (-15,-20) grid (15,20);
+%     \node at (0,0) {\includegraphics[width=30cm]{images/tree.pdf}};
+%     \node at (-12,5) {\includegraphics[width=10cm]{images/game.jpg}};
+%     \node at (-8,15) {\includegraphics[width=10cm]{images/solidworks.jpg}};
+%     \node at (1,15) {\includegraphics[height=10cm]{images/touchwiz.jpg}};
+%     \node at (8,10) {\includegraphics[width=10cm]{images/tiger.png}};
+%     \node at (12,2) {\includegraphics[width=8cm]{images/blender.jpg}};
+%     \node at (-13,-6) {\includegraphics[width=4cm]{images/nvidia-kepler-die.jpg}};
+%     \begin{scope}[xshift=-3cm, yshift=-12cm,
+%       base/.style={rectangle, minimum width=10em, minimum height=2em, draw=white, line width=2pt,
+%         anchor=south west},
+%       double/.style={base, minimum height=4em},
+%       small/.style={base, minimum width=4em}]
+%       % \draw [help lines] grid(3,2);
+%       \node[base, fill=green!20] at (0,0) {XML Registry};
+%       \node[base, fill=red!20] at (0,2em) {GL API};
+%       \node[double, fill=blue!20] at (0,4em) {Wrapper};
+%       \node[small, fill=green!20] at (-4em,4em) {ctypes};
+%       \node[small, fill=red!20] at (-4em,6em) {cffi};
+%       \node[double, minimum width=4em, fill=blue!20] at (-8em,4em) {GL};
+%       \node[base, fill=green!20] at (0,8em) {High Level API};
+%     \end{scope}
+%     \end{tikzpicture}
+%   \end{center}
+% }
 
 \block{Architecture}{
   \begin{center}
