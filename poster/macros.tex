@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ptr}{\textasteriskcentered}
+\newcommand{\code}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\colorR}[1]{{\color{red!80!black}#1}}
+\newcommand{\colorG}[1]{{\color{green!80!black}#1}}
+\newcommand{\colorB}[1]{{\color{blue!80!black}#1}}
+\newcommand{\bgR}{red!20!white}
+
+\newcommand{\boxR}[1]{\colorbox{red!20!white}{#1}}
+\newcommand{\boxG}[1]{\colorbox{green!20!white}{#1}}
+\newcommand{\boxB}[1]{\colorbox{blue!20!white}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% raise !
+\newcommand{\attention}{%
+  \begin{tikzpicture}
+    \node [fill=yellow!80, isosceles triangle, shape border rotate=90, inner sep=.1pt, rounded corners=1.5pt] {\textbf{!}};
+  \end{tikzpicture}}
+
+% check beamer code
+\newcommand{\numberItem}[1]{
+  \begin{tikzpicture}
+    \node[circle, fill=blue!70!black, draw=none, inner sep = .5pt] at (0,0)
+    {\textcolor{white}{#1}};
+  \end{tikzpicture}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "master"
+%%% End: 
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+
+\begin{document}
+
+\section{Slide 1}
+
+Bonjour, 
+
+Je vais vous présenter une interface expérimentale pour lier OpenGL à Python,
+que j'ai réaliser au cours de cette année.
+
+\section{Slide 2}
+
+Ma présentation va s'articuler en trois temps~:
+  dans un premier temps je vais introduire l'API OpenGL et les Gpus,
+  ensuite je vais vous parler de l'interface
+  et finir par une démonstration.
+
+\section{Slide 3}
+
+Pour commencer nous allons regarder l'évolution des processeurs graphiques au cours du temps,
+
+en 1970 les pionniers construisaient de grosses machines,
+ensuite les stations de travail sont apparues,
+puis les accélérateurs graphiques se sont démocratisés,
+en 2000 Nvidia a commercialisé le premier GPU,
+puis en 2006 sont apparus les processeurs génériques.
+
+On observe une convergence, il n'y a plus de différence entre le monde professionnel et grand-publique,
+la même technologie est utilisé de l'embarqué aux super-calculateurs.
+
+\section{Slide 4}
+
+Qu'est ce qui différencie un GPU d'un CPU ?
+
+Ce n'est pas la même manière d'exploiter la surface de silicium comme vous le voir sur ces photos de
+dies.
+
+Il s'agit ...
+
+\section{Slide 5}
+
+À quoi servent les GPUs ?
+
+On peut les utiliser pour la 3D, dans les moteurs de jeu, la CAO, la visualisation scientifique, et
+plus récemment pour les interfaces graphiques et même la 2D.
+
+\section{Slide 6}
+
+L'API OpenGL est un standard ouvert gouverné par le groupe khronos qui permet de -piloter- un GPU.
+et la seule API multi-platforme.
+C'est l'API pour Linux et Android.
+Il y a plusieurs API, orientée desktop, OpenGL ES pour l'embarqué et WebGL pour le web.
+
+OpenGL n'est pas un monde idéal, mais il y a des initiatives pour une nouvelle génération.
+
+\section{Slide 7}
+
+OpenGL a été créé par Silicon Graphics il y a plus de 20 ans déjà. En 2008 son développement s'est
+accéléré avec l'avènement du pipeline programmable livré avec la V3. Mais il y a des concurrents.
+
+Comme souvent on observe un déphasage due à l'inertie au changement. Il y a un déphasage entre
+OpenGL, le matériel, le parc machine, et le programmeur.
+
+Lorsqu'on développe une application avec OpenGL, une question fondamental est de savoir qu'elle API choisir.
+
+\section{Slide 8}
+
+L'API OpenGL est découpé en extensions où chacune regroupe un ensemble de nouvelle fonctions avant
+leurs intégrations dans l'API core.
+
+Mesa est à l'origine une implémentation logicielle d'OpenGL, aujourd'hui c'est un composant
+essentiel pour OpenGL sous Linux pour les drivers open source.
+
+Le graphique représente le statu(s) actuel de Mesa pour le GPU d'Intel.
+On voit que l'on est à deux doigts d'OpenGL V4.
+
+Aujourd'hui seul le driver propriétaire de Nvidia implémente la quasi totalité de l'API OpenGL.
+
+\section{Slide 9}
+
+Aujourd'hui OpenGL se résume à un langage de calcul générique GLSL qui est mis en oeuvre dans des programmes
+appelés shader et des fonctions spécifiques au graphisme.
+
+Les paramètres d'un shader sont des constantes appelés uniform qui peuvent être des floatants, des
+matrices, ou des indexes représentant une texture. Les données variables d'un shader sont des
+vecteurs de une à quatre dimensions.
+
+Ces vecteurs sont issues d'un flux de donnés qui représente des vertex de primitive graphiques tel
+que des lignes et des triangles qui sont interpolés en pixels.  
+
+\section{Slide 10}
+\section{Slide 11}
+\section{Slide 12}
+\section{Slide 13}
+\section{Slide 14}
+\section{Slide 15}
+\section{Slide 16}
+\section{Slide 17}
+\section{Slide 18}
+\section{Slide 19}
+\section{Slide 20}
+\section{Slide 21}
+\section{Slide 22}
+\section{Slide 23}
+\section{Slide 24}
+\section{Slide 25}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

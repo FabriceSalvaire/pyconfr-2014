@@ -51,48 +51,44 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
   \end{minipage}
   \begin{minipage}{.8\linewidth}
     \begin{itemize}
+    \item Une Graphic Library pour piloter un GPU
     \item Un standard \textbf{ouvert} piloté par le groupe Khronos
     \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
     \item L'API de facto de GNU/Linux et d'Android
-    \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES)
-    \item et aussi orientée web (WebGL)
+    \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES) \\
+      et aussi orientée web (WebGL)
     \end{itemize}
   \end{minipage}
 }
 
 \block{XML API Registry}{
-  % \begin{tikzpicture}[remember picture, overlay, mystyle/.style={fill=red!20, opacity=1.}] % run twice
-  %   \fill[mystyle] ($(current page.south west) + (2.4,3.3)$) rectangle +(3.2,.5);
-  %   \node [mystyle, rectangle callout, callout relative pointer={(-3.5,-.5)}]
-  %   at ($(current page.south west) + (10,4.5)$) {la taille est indiqué};
-  % \end{tikzpicture}
   Fichier XML définissant~:
   % https://www.opengl.org/registry
   \begin{itemize}
     \item les constantes
     \item les fonctions et leurs prototypes \\[.5em]
-      \footnotesize{\code{%
+      \begin{tikzpicture}[mystyle/.style={fill=red!20, opacity=1.}]
+        % \draw [help lines] grid(30,5);
+        \fill[mystyle] (6,1.25) rectangle +(6.5,.75);
+        \node [mystyle, rectangle callout, callout relative pointer={(-1,1)}]
+        at (10,0) {la taille est indiqué};
+        \node[align=left, anchor=south west] at (0,0)
+       {
+         \begin{minipage}{30cm}
+           \footnotesize \textt{%
+             \begin{tabbing}
 void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data) \\[1em]
 <command> \\
-% \hspace{1cm}
-\rule{2em}{0pt} <proto>void <name>glClearBufferData</name></proto> \\
-\rule{2em}{0pt} \ldots \\
-\rule{2em}{0pt} <param><ptype>GLenum</ptype> <name>format</name></param> \\
-\rule{2em}{0pt} <param><ptype>GLenum</ptype> <name>type</name></param> \\
-\rule{2em}{0pt} <param len="COMPSIZE(format,type)">const void *<name>data</name></param> \\
+\hspace{4em}\=\kill
+\> <proto>void <name>glClearBufferData</name></proto> \\
+\> \ldots \\
+\> <param><ptype>GLenum</ptype> <name>format</name></param> \\
+\> <param><ptype>GLenum</ptype> <name>type</name></param> \\
+\> <param len="COMPSIZE(format,type)">const void *<name>data</name></param> \\
 </command>
-}}
-% \begin{Verbatim}[commandchars=\\\{\}]
-%  void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data)
-%
-% <command>
-%     <proto>void <name>glClearBufferData</name></proto>
-%     ...
-%     <param><ptype>GLenum</ptype> <name>format</name></param>
-%     <param><ptype>GLenum</ptype> <name>type</name></param>
-%     <param len="COMPSIZE(format,type)">const void *<name>data</name></param>
-% </command>
-% \end{Verbatim}}
+            \end{tabbing}}
+         \end{minipage}};
+      \end{tikzpicture}
     \item les extensions
     \item les \textbf{versions} et leurs \textbf{profiles}
   \end{itemize}
@@ -100,29 +96,17 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
     \colorR{$\longrightarrow$ Apporte des informations essentielles par rapport au fichier d'en-tête \\[.5em]
       \attention{} Mais incomplet}
   \end{center}
-  \note{
-    \begin{enumerate}
-    \item 
-    \end{enumerate}
-  }
 }
 
 \block{Architecture}{
-  \begin{description}
-  \item[\numberItem{1}] \ l'utilisateur requiert sont API \\[.5em]
-    \texttt{%
-      % enums, commands = generate\_api(api, api\_number, profile) \\[.5em]
-      enums, commands = generate\_api('gl', '4.0', 'core')% \colorG{}%
-    }
-  \item[\numberItem{2}] \ on construit le wrapper à la volé \\
-    en exploitant l'XML API Registry \\
-    et via un mécanisme de traduction automatisé de prototypes
-    % \texttt{%
-    % setattr(GL, enum, value) \\[.1em]
-    % setattr(GL, command, CommandWrapper())%
-    % }
-  \item[\numberItem{3}] \ on code son application
-  \end{description}
+  \begin{tabbing}
+    \hspace{1.5em}\=\kill
+    \numberItem{1} \> l'utilisateur requiert sont API \\[.25em]
+    \> \texttt{enums, commands = generate\_api('gl', '4.0', 'core')} \\[.5em] % \colorG{}
+    \numberItem{2} \> on construit le wrapper à la volé en exploitant l'XML API Registry \\
+    \> via un mécanisme de traduction automatisé de prototypes \\[.5em]
+    \numberItem{3} \> on code son application en utilisant une API de haut niveau
+  \end{tabbing}
   \vspace{1cm}
   \begin{center}
     \begin{tikzpicture}[]
@@ -130,7 +114,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
       \node at (0,0) {\includegraphics[width=30cm]{images/tree.pdf}};
       \node at (-12,5) {\includegraphics[width=10cm]{images/tiger.png}};
       \node at (-8,15) {\includegraphics[width=10cm]{images/solidworks.jpg}};
-      \node at (1,15) {\includegraphics[height=10cm]{images/touchwiz.jpg}};
+      \node at (1,15) {\includegraphics[height=9cm]{images/touchwiz.jpg}};
       \node at (10,11) {\includegraphics[width=10cm]{images/game.jpg}};
       \node at (12,2) {\includegraphics[width=8cm]{images/blender.jpg}};
       \node at (-13,-6) {\includegraphics[width=4cm]{images/nvidia-kepler-die.jpg}};
@@ -186,22 +170,33 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \column{.5}
 
 \block[]{Traduction Automatisé de Prototypes}{
-  \begin{description}
-  \item[output par référence]
-    \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
-    \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1})
+  \large{Idée~: exploiter les particularités de l'API OpenGL}
+  \begin{tabbing}
+    \hspace{1.5em}\=\kill
+    \textbf{output par référence} \\
+    \> \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
+    \> \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1}) \\[1em]
     %
-  \item[input via pointeur] \\
-    \boxR{int} foo(\boxG{int p1}, \boxB{int \ptr s2, const float \ptr p2}) \\
-    \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
+    \textbf{input via pointeur} \\
+    \> \boxR{int} foo(\boxG{int p1}, \boxB{int \ptr s2, const float \ptr p2}) \\
+    \> \boxR{o0} = foo(\boxG{p1}, \boxB{p2}) \\[1em]
     %
-  \item[Output/Input via Pointeur] \\
-    \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
-    \boxR{o0} = foo(\boxG{p1}, \boxB{p2}) \\[1em]
+    \textbf{Output/Input via Pointeur} \\
+    \> \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
+    \> \boxR{o0} = foo(\boxG{p1}, \boxB{p2}) \\[1em]
     %
-    \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
-    \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
-  \end{description}
+    \> \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
+    \> \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
+  \end{tabbing}
+}
+
+\block[]{Objectifs}{
+  \begin{itemize}
+  \item Compatible avec l'interpréteur Pypy grâce à Cffi (JIT)
+  \item Keep it simple
+  \item Réduire l'overhead au minimum
+  \item Focus sur l'OpenGL Moderne
+  \end{itemize}
 }
 
 \block[]{PyDVI\\ a Python library to read and process DVI files}{
@@ -211,14 +206,14 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
       \begin{minipage}[t]{17cm}
         \begin{itemize}
         \item DVI $\longrightarrow$ PNG tool
-        \item OpenGL Viewer \\
+        \item OpenGL Viewer \\[1em]
           \small{Font Map Texture} \\[.5em]
-          \fbox{\includegraphics[width=8em]{images/font-map.png}}
+          \fbox{\includegraphics[width=10em]{images/font-map.png}}
         \end{itemize}
       \end{minipage}
       & 
       \begin{center}
-        \includegraphics[width=15em]{images/dvi-gl-viewer.png}
+        \includegraphics[width=18cm]{images/dvi-gl-viewer.png}
       \end{center} \\[1cm]
       \begin{itemize}
       \item packed font, Type 1, virtual font

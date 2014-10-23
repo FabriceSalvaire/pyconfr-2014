@@ -210,7 +210,7 @@ class \colorB{CommandWrapper}():
         for parameter_wrapper, parameter in zip(self._parameter_wrappers, args):
             to_python_converter = \colorR{parameter_wrapper.from_python}(parameter, c_parameters)
 
-        output = self._command(c_parameters)
+        output = self._function(c_parameters)
 
         return [output] + [\colorG{to_python_converter()} for to_python_converter in to_python_converters]
 \end{Verbatim}
@@ -247,6 +247,7 @@ class \colorB{CommandWrapper}():
       \item type = \code{const char \ptr} \quad {\tiny (e.g.\ shader source)}
       \item p = Numpy array~: \\
         check type if type not void
+        % None
       \end{enumerate}
       \alert{Solution~:}
       \begin{itemize}
@@ -285,7 +286,6 @@ class \colorB{CommandWrapper}():
     \end{column}
     \begin{column}[c]{.5\textwidth}
       \boxR{int} foo(\boxG{int p1}, \boxB{int \ptr s2, const float \ptr p2}) \\
-      % $\longrightarrow$ \\
       \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
     \end{column}
   \end{columns}
@@ -310,7 +310,6 @@ class \colorB{CommandWrapper}():
     \end{minipage} &
     \begin{minipage}[t]{.4\linewidth}
       \boxR{int} foo(\boxG{int p1}, \boxB{int s2, float \ptr p2}) \\
-      % $\longrightarrow$ \\
       \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
     \end{minipage}
   \end{tabular} \\[.4em]
@@ -324,7 +323,6 @@ class \colorB{CommandWrapper}():
     \end{minipage} &
     \begin{minipage}[t]{.4\linewidth}
       \boxR{int} foo(\boxG{int p1}, \boxB{int s2, char \ptr p2}) \\
-      % $\longrightarrow$ \\
       \boxR{o0}, \boxB{p2} = foo(\boxG{p1}, \boxB{s2})
     \end{minipage}
   \end{tabular} \\[.4em]
