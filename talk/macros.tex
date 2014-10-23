@@ -6,7 +6,7 @@
 % Redefinition, symbol included in link:
 \let\orighref\href
 %\renewcommand{\href}[2]{\orighref{#1}{#2\,\resizebox{!}{1.mm}{\faExternalLink}}} % lualatex
-\pgfdeclareimage[height=1mm]{externalLink}{images/external-link-small.png}
+% \pgfdeclareimage[height=1mm]{externalLink}{images/external-link-small.png}
 \renewcommand{\href}[2]{%
 \orighref{#1}{#2\,%
   \begin{tikzpicture}[scale=.1, mystyle/.style={line width=.25pt, line cap=round, rounded corners=.5pt}]

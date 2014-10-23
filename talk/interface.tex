@@ -27,10 +27,21 @@
   \item \code{unsigned char, (unsigned) int}
   \item \code{void \ptr, const unsigned char \ptr} {\tiny (quelques cas)}
   \end{itemize}
-  %%%%%%%%%%
+  \begin{textblock}{5.25}(10,5.5)
+    \begin{mdframed}[roundcorner=10pt]
+      Soit
+      \begin{itemize}
+      \item type de bases
+      \item chaîne de caractères
+      \item tableaux~: Numpy array
+      \end{itemize}
+    \end{mdframed}
+  \end{textblock}
+  %%%%%%%%%% 
   \note{
     \begin{enumerate}
-    \item 
+    \item À quoi cela ressemble ?
+    \item Comment on l'utilise ?
     \end{enumerate}
   }
 \end{frame}
@@ -77,8 +88,8 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
       \colorG{passé par copie} \\[.5em]
       %
     \item[output par référence] \texttt{int \colorR{\ptr [1]} length} \\
-      \colorG{plus d'un paramètre retourné
-        cf.\ \href{http://en.wikipedia.org/wiki/X86_calling_conventions}{C calling convention}
+      \colorG{plus d'un paramètre retourné {\tiny (on suppose)}
+        % cf.\ \href{http://en.wikipedia.org/wiki/X86_calling_conventions}{C calling convention}
       } \\[.5em]
       %
     \item[input/output via pointeur] \texttt{GLsizeiptr size, void \colorR{\ptr [size]} data} \\
@@ -96,7 +107,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
   %%%%%%%%%%
   \note{
     \begin{enumerate}
-    \item 
+    \item Quel est l'intérêt pas rapport au header
     \end{enumerate}
   }
 \end{frame}
@@ -113,7 +124,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
           small/.style={base, minimum width=4em}]
           % \draw [help lines] grid(3,2);
           \node[base, fill=green!20] at (0,0) {XML Registry};
-          \node[base, fill=red!20] at (0,2em) {GL API};
+          \node[base, fill=red!20] at (0,2em) {GL OO API};
           \node[double, fill=blue!20] at (0,4em) {Wrapper};
           \node[small, fill=green!20] at (-4em,4em) {ctypes};
           \node[small, fill=red!20] at (-4em,6em) {cffi};
@@ -125,10 +136,13 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
     \begin{column}{.5\linewidth}
       \begin{enumerate}
       \item l'utilisateur requiert sont API \\
-        {\tiny \code{enums, commands = generate\_api(api, api\_number, profile)}}
+        {\tiny%
+          \code{enums, commands = generate\_api(api, api\_number, profile)}
+          \colorG{\code{enums, commands = generate\_api('gl', '4.0', 'core')}}
+        }
       \item on construit le wrapper à la volé \\
         {\tiny \code{setattr(GL, enum, value)}} \\
-        {\tiny \code{setattr(GL, command, class instance)}} \\
+        {\tiny \code{setattr(GL, command, CommandWrapper())}} \\
       \end{enumerate}
     \end{column}
   \end{columns}
@@ -142,13 +156,15 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{La classe Command (simplifié)}
+  \frametitle{La classe CommandWrapper (simplifié)}
   {\tiny
     \begin{center}
       \begin{tabular}{c|c}
         \begin{minipage}[t]{.4\linewidth}
-          \centerline{Python $\longrightarrow$ C}
-          \vspace{1em}
+          \begin{center}
+            \numberItem{1} \\
+            \textbf{Python $\longrightarrow$ C}
+          \end{center}
 \begin{Verbatim}[commandchars=\\\{\}]
 class \colorR{ParameterWrapper}():
 
@@ -157,13 +173,15 @@ class \colorR{ParameterWrapper}():
 
     def from_python(self, parameter, c_parameters):
         ...
-        return to_python_converter
+        return to_python_converter()
 \end{Verbatim}
       \end{minipage}
       &
       \begin{minipage}[t]{.25\linewidth}
-        \centerline{C $\longrightarrow$ Python}
-        \vspace{1em}
+        \begin{center}
+          \numberItem{3} \\
+          \textbf{C $\longrightarrow$ Python}
+        \end{center}
 \begin{Verbatim}[commandchars=\\\{\}]
 class \colorG{ToPythonConverter}():
 
@@ -183,16 +201,18 @@ class \colorG{ToPythonConverter}():
 \begin{Verbatim}[commandchars=\\\{\}]
 class \colorB{CommandWrapper}():
 
-    def __init__(self, wrapper, command):
-        self._parameter_wrappers = [\colorR{parameter_wrapper}(parameter) for parameter in command.parameters]
-
-    def \colorB{__call__}(self, *args, **kwargs):
-        c_parameters = [None]*self._number_of_parameters
+    def __init__(self, command):
+        self._parameter_wrappers = [\colorR{parameter_wrapper}(parameter) for parameter in command.parameters
+                                    if ...]
+\numberItem{2} def \colorB{__call__}(self, *args):
+        c_parameters = [None, ...]
 
         for parameter_wrapper, parameter in zip(self._parameter_wrappers, args):
             to_python_converter = \colorR{parameter_wrapper.from_python}(parameter, c_parameters)
 
-        return [\colorG{to_python_converter()} for to_python_converter in to_python_converters]
+        output = self._command(c_parameters)
+
+        return [output] + [\colorG{to_python_converter()} for to_python_converter in to_python_converters]
 \end{Verbatim}
     \end{minipage}
   \end{center}}
@@ -205,29 +225,34 @@ class \colorB{CommandWrapper}():
 \end{frame}
 
 \begin{frame}
-  \frametitle{Translation automatique des prototypes}
+  \frametitle{Traduction automatique des prototypes}
   \begin{description}[output par référence]
     \item[simple] \texttt{GLenum target} \\[1em]
-      % \colorB{Python $\longrightarrow$ C} \\[.5em]
+      %
+    \item[output par référence] \texttt{int \alert{\ptr [1]} length} \\[.25em]
+      \begin{tabular}{ll}
+        \begin{minipage}[t]{3cm}
+          new type[1] 
+        \end{minipage} &
+        \begin{minipage}[t]{6cm}
+          \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
+          \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1})
+        \end{minipage}
+      \end{tabular} \\[1em]
       % 
-    \item[output par référence] \texttt{int \alert{\ptr [1]} length} \\
-      \colorB{%
-        % C  $\longrightarrow$ Python \\
-        % retourné dans l'ordre d'apparition \\[.5em]
-        \colorbox{\bgR}{int} foo(\boxG{int p1}, \boxB{int \ptr r1, int \ptr r2}) \\
-        % $\longrightarrow$ \\
-        \boxR{o0}, \ldots, \boxB{r1, r2} = foo(\boxG{p1})
-      } \\[1em]
-      % 
-    \item[Pointeur Complexe]
+    \item[Pointeur Complexe] \attention{} \alert{XML est incomplet~: la formule n'est pas indiqué} \\
       If
       \begin{enumerate}
-      \item type = \texttt{const char \ptr}
+      \item type = \code{const char \ptr} \quad {\tiny (e.g.\ shader source)}
       \item p = Numpy array~: \\
-        check type if type not void \\
-      \attention{} \alert{XML est incomplet~: la formule n'est pas indiqué}
+        check type if type not void
       \end{enumerate}
-  \end{description}
+      \alert{Solution~:}
+      \begin{itemize}
+        \item Pythonic Wrapper qui se substitue à la fonction 
+        \item compléter le fichier XML
+      \end{itemize}
+    \end{description}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
@@ -237,23 +262,25 @@ class \colorB{CommandWrapper}():
 \end{frame}
 
 \begin{frame}
-  \frametitle{Translation automatique des prototypes~: input via pointeur}
+  \frametitle{Traduction automatique des prototypes~: input via pointeur}
   \texttt{GLsizeiptr size, \colorR{const} void \colorR{\ptr [size]} data} \\[.5em]
   \attention{} \alert{XML est incomplet~: \code{size = len(p)} \textbf{ou} \code{size\_of(p)}} \\
   logiquement \texttt{void} $\Longrightarrow$ \texttt{size\_of} et \texttt{float} $\Longrightarrow$ \texttt{len} \\[1em]
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}[c]{.5\textwidth}
       If
       \begin{enumerate}
       \item type = \texttt{const char \ptr\ptr}~:\\
-        \texttt{str(p)} ou \texttt{[str(x) for x in p]}
+        \code{str(p)} ou \code{[str(x) for x in p]}
       \item p = Numpy array~:\\
-        check type if type not void
-      \item p = iterable
+        check type if type not void \\
+        \code{size = p.size ou p.nbytes}
+      \item p = iterable \\
+        \code{size = len(p)}
       \end{enumerate}
     \end{column}
-    \begin{column}{.5\textwidth}
-      \boxR{int} foo(\boxG{int p1}, \boxB{int \ptr s2, float \ptr p2}) \\
+    \begin{column}[c]{.5\textwidth}
+      \boxR{int} foo(\boxG{int p1}, \boxB{int \ptr s2, const float \ptr p2}) \\
       % $\longrightarrow$ \\
       \boxR{o0} = foo(\boxG{p1}, \boxB{p2})
     \end{column}
@@ -267,7 +294,7 @@ class \colorB{CommandWrapper}():
 \end{frame}
 
 \begin{frame}
-  \frametitle{Translation automatique des prototypes~: Input/Output via Pointeur}
+  \frametitle{Traduction automatique des prototypes~: Output/Input via Pointeur}
   If \\
   % \begin{center}
   \begin{tabular}[t]{ccc}
@@ -331,11 +358,19 @@ class \colorB{CommandWrapper}():
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Gestion des erreurs}
+  \frametitle{Pour se simplifier la vie \ldots}
+  \begin{itemize}
+    % \item Pythonic wrapper~: se substitue à la fonction 
+    \item query-opengl-api~: utilitaire pour interroger l'API
+    \item \code{command.manual()} dans une session IPython
+    \item \code{command.call\_counter} pour tracer son application
+    \item Gestion des erreurs
 \begin{verbatim}
 with GL.error_checker():
   ...
 \end{verbatim}
+
+  \end{itemize}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
@@ -346,6 +381,8 @@ with GL.error_checker():
 
 \begin{frame}
   \frametitle{Pour aller plus loin}
+  Code source~:
+  \href{https://github.com/FabriceSalvaire/PyOpenGLng}{https://github.com/FabriceSalvaire/PyOpenGLng} \\[1em]
   \begin{itemize}
   \item Peaufiner la GlApi
   \item Partager le code commun entre ctypes et cffi ? \\
@@ -353,6 +390,7 @@ with GL.error_checker():
   \item Tester plus largement le wrapper
   \item Améliorer l'interface de haut niveau
   \item Benchmark
+  \item Compléter le fichier XML
   \end{itemize}
   %%%%%%%%%%
   \note{

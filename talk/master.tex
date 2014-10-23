@@ -8,11 +8,7 @@
 
 \title[]{Une interface expérimentale pour lier OpenGL à Python}
 \author[F.~Salvaire]{Fabrice~Salvaire}
-\institute{% hack since author is used in the PDF metadata
-{\tiny%
-\texttt{fabrice.salvaire@orange.fr} \\[.5em]
-\url{https://github.com/FabriceSalvaire/pyconfr-2014} \\
-CC BY-NC-SA 3.0}}
+% \institute{} % hack since author is used in the PDF metadata
 \date[26 oct 14]{PyConFr 2014 \\ {\tiny 26 Octobre 2014}}
 
 \logo{\pgfuseimage{OpenGLLogo}\pgfuseimage{FunnyPython}}
@@ -33,6 +29,12 @@ CC BY-NC-SA 3.0}}
 
 \begin{frame} % Title Page Frame
   \titlepage
+  \begin{textblock}{12}(.5,7.75)
+    \tiny%
+    \texttt{fabrice.salvaire@orange.fr} \\
+    \url{https://github.com/FabriceSalvaire/pyconfr-2014} \\
+    CC BY-NC-SA 3.0
+  \end{textblock}
 \end{frame}
 
 \logo{} % hack to clear the logo
@@ -43,7 +45,20 @@ CC BY-NC-SA 3.0}}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\tableofcontents}
+% pour l'impression recto-verso
+\frame{}
+
+\frame{%
+\tableofcontents
+\note{
+  \begin{tabular}{ll}
+    intro     & 5 min \\
+    interface & 15 min \\
+    demo      & 5 min \\
+    question  & 5 min \\
+  \end{tabular}
+}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -54,7 +69,7 @@ CC BY-NC-SA 3.0}}
 \section{Introduction}
 \input{introduction}
 
-\section{L'interface}
+\section{Interface}
 \input{interface}
 
 \section{Demo}

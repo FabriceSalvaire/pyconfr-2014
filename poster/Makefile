@@ -19,8 +19,8 @@ FIGURES_PDF = $(patsubst %.py, %.pdf, ${FIGURES_PY})
 #
 ####################################################################################################
 
-LATEX_COMMAND=pdflatex
-#LATEX_COMMAND=lualatex
+#LATEX_COMMAND=pdflatex
+LATEX_COMMAND=lualatex
 
 #INTERACTION=
 #INTERACTION=-interaction=batchmode
@@ -58,8 +58,10 @@ fast: ${TEXFILES}
 # poster-A3-margin.pdf: ${JOB_NAME}.pdf
 a3: ${JOB_NAME}.pdf
 	# pdfposter -v -m420x297mm -p840x1188mm poster.pdf poster-A3.pdf
-	pdfposter -v -p3x3A3 -mA3 -p840x1188mm poster.pdf poster-A3.pdf
-	convert -bordercolor white -border 20 poster-A3.pdf poster-A3-margin.pdf
+	pdfposter -v -mA3 -p840x1188mm poster.pdf poster-A3.pdf
+	# convert -bordercolor white -border 20 poster-A3.pdf poster-A3-margin.pdf
+	pdfseparate poster-A3.pdf poster-A3-page%d.pdf
+	${LATEX} poster-sheet-2.tex
 
 clean:
 	-rm *.aux *.bbl *.blg *.dvi *.log *.lof *.lot *.toc *.idx *.lgpl *.nav *.out *.snm *.vrb \

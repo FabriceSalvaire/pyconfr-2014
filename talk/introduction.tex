@@ -7,14 +7,14 @@
       % > latex arroxw
       \draw[line width=10pt,-latex] (1.5,1) .. controls +(1,4) and +(-5,-0) .. +(10,4);
       \node at (1.5,1) {\includegraphics[scale=.1]{images/evans-sutherland.jpg}};
-      \node [anchor=south,align=center] at (1.5,0) {Evan \& Sutherland\\1970};
+      \node [anchor=south,align=center] at (1.5,0) {Evan \& Sutherland \\ {\small 1970}};
       \node at (3,3.25) {\includegraphics[scale=.1]{images/sgi-o2-workstation.jpg}};
-      \node [anchor=north,align=center] at (2.5,4.25) {SGI Workstation\\1990-2004};
+      \node [anchor=north,align=center] at (2.5,4.25) {SGI Workstation \\ {\small 1990-2004}};
       \node at (6,4.75) {\includegraphics[scale=.5]{images/oxygen.png}};
       \node [anchor=north] at (6,5.25) {Accélérateur Graphique};
       \node at (9,5) {\includegraphics[scale=.03]{images/nvidia-gforce.png}};
-      \node [anchor=south,align=center] at (9,4.5) {Nvidia GeForce 256\\ $1^\text{er}$ GPU};
-      \node [anchor=west,align=left] at (11.5,5) {\textbf{General Purpose} \\ \textbf{GPU}};
+      \node [anchor=south,align=center] at (9,4.5) {Nvidia GeForce 256 \\ $1^\text{er}$ GPU \\ {\small 2000}};
+      \node [anchor=west,align=left] at (11.5,5) {\textbf{General Purpose} \\ \textbf{GPU} \\ {\small 2006}};
       \draw (14.5,0) -- +(.01,0); % hack
     \end{tikzpicture}
   \end{center}
@@ -38,26 +38,30 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Présentation des GPUs~: processeur de flux}
+  \frametitle{Présentation des GPUs~: processeurs de flux}
   % dessin flux de données traversant la page
   \begin{center}
-    \begin{tabular}{cc}
-      Intel Haswell Die & Nvidia Kepler Die \\[5mm]
-      \includegraphics[height=.3\textheight]{images/intel-haswell-die.jpg} &
-      \includegraphics[height=.3\textheight]{images/nvidia-kepler-die.jpg}
-    \end{tabular} \\[5mm]
-    Architecture de calcul ($\times$, $+$) hautement parallèle \\
-    couplée à une mémoire rapide (GDDR5) \\
-    % et un interpolateur
+    % \begin{tabular}{>{\centering\arraybackslash}m{.4\textwidth} >{\centering\arraybackslash}m{.4\textwidth}}
+    % tikz bbox
+    \begin{tabular}{m{8cm}m{35mm}}
+      \centerline{Intel Haswell Die} & \centerline{Nvidia Kepler Die} \\
+      \centerline{\begin{tikzpicture}[mystyle/.style={-latex, line width=1pt}]
+        \node (0,0) {\includegraphics[height=.3\textheight]{images/intel-haswell-die.jpg}};
+        \node (o1) at (-3.75,1.5) {\tiny GPU core};
+        \draw[mystyle] (o1) -- ++(.5,-.5);
+        \node (o2) at (-1.75,1.5) {\tiny CPU core};
+        \draw[mystyle] (o2) -- ++(1,-1);
+        \node (o3) at (-.7,-1.5) {\tiny L3 Cache};
+        \draw[mystyle] (o3) -- ++(1,.75);
+      \end{tikzpicture}} &
+      \centerline{\includegraphics[height=.3\textheight]{images/nvidia-kepler-die.jpg}}
+    \end{tabular} \\
+    \begin{minipage}{.7\linewidth}
+      Architecture de calcul ($\times$, $+$) hautement parallèle \\
+      des interpolateurs de lignes et de triangles \\
+      couplée à une mémoire rapide (GDDR5)
+    \end{minipage}
   \end{center}
-  \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run twice
-    \node (o1) at ($(current page.south west) + (2.5,6.25)$) {\tiny GPU core};
-    \draw[mystyle] (o1) -- ++(.5,-.5);
-    \node (o2) at ($(current page.south west) + (4.5,6.25)$) {\tiny CPU core};
-    \draw[mystyle] (o2) -- ++(1,-1);
-    \node (o3) at ($(current page.south west) + (6,3.25)$) {\tiny L3 Cache};
-    \draw[mystyle] (o3) -- ++(1,.75);
-  \end{tikzpicture}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
@@ -87,9 +91,9 @@
         \includegraphics[width=.8\textwidth]{images/tiger.jpg}
       \end{center}
     \end{column}
-    \begin{column}[t]{.1\textwidth}
+    \begin{column}{.1\textwidth}
       \begin{center}
-        \includegraphics[width=1.\textwidth]{images/touchwiz.jpg}
+        \includegraphics[height=2.5cm]{images/touchwiz.jpg}
       \end{center}
     \end{column}
     \begin{column}{.4\textwidth}
@@ -115,7 +119,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Présentation de l'API OpenGL}
+  \frametitle{Présentation de l'API \href{http://www.opengl.org}{OpenGL}}
   \begin{columns}
     \begin{column}{.2\textwidth}
       \begin{center}
@@ -127,7 +131,7 @@
     \end{column}
     \begin{column}{.8\textwidth}
       \begin{itemize}
-      \item Un standard \textbf{ouvert} piloté par le groupe Khronos
+      \item Un standard \textbf{ouvert} piloté par le groupe \href{http://www.khronos.org}{Khronos}
       \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
       \item L'API de facto de GNU/Linux et d'Android
       \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES)
@@ -160,7 +164,7 @@
       \item OpenGL
       \item Hardware
       \item machine de l'utilisateur
-      \item Mesa
+      \item \href{http://www.mesa3d.org}{Mesa}
       \item programmeur
       \end{itemize}
       \alert{Quelle API choisir?}
@@ -184,7 +188,7 @@
   \begin{columns}
     \begin{column}{.5\textwidth}
       \begin{center}
-        Status de Mesa pour l'Intel HD Graphics {\tiny (*)} \\[.5em]
+        \href{http://mesamatrix.net}{Status de Mesa} pour l'Intel HD Graphics {\tiny (*)} \\[.5em]
         \includegraphics[width=1.\textwidth]{figures/mesa-status.pdf} \\ % ,transparent
       \end{center}
       {\tiny (*) core i3/5/7}
@@ -194,8 +198,9 @@
       \item Extensions~: \\
         ensemble de nouvelles fonctions \\
         avant leurs intégrations dans l'API core
-      \item Mesa~: OpenGL sous Linux
-      \item Nvidia implémente 99,9\,\% de l'API % driver
+      \item \href{http://www.mesa3d.org}{Mesa}~: OpenGL sous Linux \\
+        à 2 doigts d'OpenGL V4.0
+      \item Nvidia implémente 99,9\,\% de l'API % OpenGL driver
       \end{itemize}
     \end{column}
   \end{columns}
@@ -271,7 +276,7 @@ void main() \{
     \begin{tabular}{lccc}
       & Avantages & Inconvénients & Pypy \\[.5em]
       %
-      API C Python &
+      \href{https://docs.python.org/3.4/c-api}{API C Python} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -288,7 +293,7 @@ void main() \{
       \textcolor{orange}{Non} \\[1em] % ???
       %
       \begin{minipage}[t]{2cm}
-        SWIG \\
+        \href{http://www.swig.org}{SWIG} \\
         \tiny{$=$ API C automatisé}
       \end{minipage} &
       \begin{minipage}[t]{.2\linewidth}
@@ -308,7 +313,7 @@ void main() \{
       \end{minipage} &
       \textcolor{orange}{Non} \\[1em] % ???
       %
-      Ctypes &
+      \href{https://docs.python.org/3.4/library/ctypes.html}{Ctypes} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -324,7 +329,7 @@ void main() \{
       \end{minipage} &
       \textcolor{red}{Non} \\[1em]
       %
-      Cffi &
+      \href{https://cffi.readthedocs.org/en/release-0.8}{Cffi} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -345,10 +350,15 @@ void main() \{
     % \alert{L'idéale pour \Cpp{} est la réflexion}
     \alert{mais l'idéale serait la réflexion}
   \end{center}
+  \begin{textblock}{5}(14,8)
+    \tiny mais aussi\\
+    \href{http://www.riverbankcomputing.com/software/sip/intro}{sip}
+    \href{http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/}{Pyrex}
+  \end{textblock}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
-    \item
+    \item Comment on lie une bibliothèque à Python
     \end{enumerate}
   }
 \end{frame}
@@ -364,12 +374,11 @@ void main() \{
       \begin{itemize}
       \item \textbf{compatibilité ascendante avec la V2.x}
       \item implémente un parser de fichier d'en-tête
-      \item PyOpenGL
-      \item PyOpenGL-accelerate
+      \item PyOpenGL {\tiny et PyOpenGL-accelerate}
       \end{itemize}
     \end{description}
     \vspace{1em}
-    et des alternatives~:
+    et des alternatives plus spécifique~:
     \begin{description}
     \item[\href{http://www.pyglet.org}{Pyglet}] a cross-platform windowing and multimedia library
     \item[\href{http://vispy.org}{Vispy}] a high-performance interactive 2D/3D data visualization library
@@ -377,7 +386,7 @@ void main() \{
   %%%%%%%%%%
   \note{
     \begin{enumerate}
-    \item
+    \item Présentation de l'existant
     \end{enumerate}
   }
 \end{frame}
@@ -402,15 +411,15 @@ return name.value[:int(name_length[0])]
     \vspace{1em}
     Résumé~:
     \begin{itemize}
-    \item une longue histoire
-    \item un code source touffue~: 2000 fichiers \small({\emph{en comptant les extensions})}
+    \item \textbf{une longue histoire}
+    \item un code source touffu~: 2000 fichiers \small({\emph{en comptant les extensions})}
     \item Python et OpenGL ont évolué
     \item pas d'API de haut niveau pour l'OpenGL moderne % l'API 
     \end{itemize}
   %%%%%%%%%%
   \note{
     \begin{enumerate}
-    \item Pourquoi réimplémenter OpenGL
+    \item Pourquoi réimplémenter PyOpenGL
     \end{enumerate}
   }
 \end{frame}
