@@ -1,32 +1,46 @@
 \documentclass[12pt]{article}
 
+%** Package *********************************************************************
+
+%**** Page settings *********************
+
+\usepackage[%
+paper=a4paper,%
+includeheadfoot,%
+margin=2cm,%
+headsep=0cm, footskip=0cm,%
+]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Postscript layout of CM with T1 coding
+
 \begin{document}
 
 \section{Slide 1}
 
 Bonjour, 
 
-Je vais vous présenter une interface expérimentale pour lier OpenGL à Python,
+Je vais vous présenter une interface expérimentale pour lier OpenGL à Python, \\
 que j'ai réaliser au cours de cette année.
 
 \section{Slide 2}
 
-Ma présentation va s'articuler en trois temps~:
-  dans un premier temps je vais introduire l'API OpenGL et les Gpus,
-  ensuite je vais vous parler de l'interface
+Ma présentation va s'articuler en trois temps~: \\
+  dans un premier temps je vais introduire l'API OpenGL et les Gpus, \\
+  ensuite je vais vous parler de l'interface \\
   et finir par une démonstration.
 
 \section{Slide 3}
 
 Pour commencer nous allons regarder l'évolution des processeurs graphiques au cours du temps,
 
-en 1970 les pionniers construisaient de grosses machines,
-ensuite les stations de travail sont apparues,
-puis les accélérateurs graphiques se sont démocratisés,
-en 2000 Nvidia a commercialisé le premier GPU,
+en 1970 les pionniers construisaient de grosses machines, \\
+ensuite les stations de travail sont apparues, \\
+puis les accélérateurs graphiques se sont démocratisés, \\
+en 2000 Nvidia a commercialisé le premier GPU, \\
 puis en 2006 sont apparus les processeurs génériques.
 
-On observe une convergence, il n'y a plus de différence entre le monde professionnel et grand-publique,
+On observe une convergence, il n'y a plus de différence entre le monde professionnel et grand-publique, \\
 la même technologie est utilisé de l'embarqué aux super-calculateurs.
 
 \section{Slide 4}
@@ -47,9 +61,9 @@ plus récemment pour les interfaces graphiques et même la 2D.
 
 \section{Slide 6}
 
-L'API OpenGL est un standard ouvert gouverné par le groupe khronos qui permet de -piloter- un GPU.
-et la seule API multi-platforme.
-C'est l'API pour Linux et Android.
+L'API OpenGL est un standard ouvert gouverné par le groupe khronos qui permet de -piloter- un GPU. \\
+et la seule API multi-platforme. \\
+C'est l'API pour Linux et Android. \\
 Il y a plusieurs API, orientée desktop, OpenGL ES pour l'embarqué et WebGL pour le web.
 
 OpenGL n'est pas un monde idéal, mais il y a des initiatives pour une nouvelle génération.
@@ -72,7 +86,7 @@ leurs intégrations dans l'API core.
 Mesa est à l'origine une implémentation logicielle d'OpenGL, aujourd'hui c'est un composant
 essentiel pour OpenGL sous Linux pour les drivers open source.
 
-Le graphique représente le statu(s) actuel de Mesa pour le GPU d'Intel.
+Le graphique représente le statu(s) actuel de Mesa pour le GPU d'Intel. \\
 On voit que l'on est à deux doigts d'OpenGL V4.
 
 Aujourd'hui seul le driver propriétaire de Nvidia implémente la quasi totalité de l'API OpenGL.
@@ -91,13 +105,13 @@ que des lignes et des triangles qui sont interpolés en pixels.
 
 \section{Slide 10}
 
-Il y a plusieurs solution pour interfacer du code C à Python,
+Il y a plusieurs solution pour interfacer du code C à Python, \\
 chacune à ses avantages et ses inconvénients.
 
 Il y a deux grandes familles, celles qui sont basé sur l'API C Python et celles qui sont basé sur la
 bibliothèque FFI.
 
-Ensuite il y a des solutions qui sont directement capable de lire les fichiers d'en-tête C,
+Ensuite il y a des solutions qui sont directement capable de lire les fichiers d'en-tête C, \\
 et des solutions qui ne requiert pas de compilateur C.
 
 Au niveau de l'interpréteur Pypy (JIT), seul Cffi est supporté, elle est d'ailleurs développée par
@@ -109,14 +123,14 @@ En résumé, ...
 
 PyOpenGL est la référence actuelle pour utiliser OpenGL en Python.
 
-Ce package en est à sa troisième génération,
-au début il s'agissait d'une extension basé sur l'API C,
-puis cela a été automatisé grâce à SWIG,
+Ce package en est à sa troisième génération, \\
+au début il s'agissait d'une extension basé sur l'API C, \\
+puis cela a été automatisé grâce à SWIG, \\
 et par la suite réimplémenté en utilisant ctypes et parser de fichiers d'en-tête.
 
 La V3 a conservé une compatibilité ascendante avec la V2
 
-En outre il existe des alternatives plus spécifique,
+En outre il existe des alternatives plus spécifique, \\
 Pyglet pour les jeux, et plus récemment vispy pour la visualisation scientifique.
 
 (monté parser, supprimer Pyopengl ...)
@@ -126,15 +140,15 @@ Pyglet pour les jeux, et plus récemment vispy pour la visualisation scientifiqu
 Au cours de ces dernières années, j'ai utilisé PyOpenGL pour développer une application
 industrielle.
 
-J'ai rencontré au fil du temps plusieurs difficultés, essentiellement due à un déphasage avec OpenGL.
-Des constantes étaient absentes,
-Certaines fonctions n'ont pas de Pythonic Wrapper et requiert du ``glue code'' pas très sympathique.
-Des fonctions étaient perdues dans la hiérarchie de module, et retrouvé à coups de grep dans le code source,
+J'ai rencontré au fil du temps plusieurs difficultés, essentiellement due à un déphasage avec OpenGL. \\
+Des constantes étaient absentes, \\
+Certaines fonctions n'ont pas de Pythonic Wrapper et requiert du ``glue code'' pas très sympathique. \\
+Des fonctions étaient perdues dans la hiérarchie de module, et retrouvé à coups de grep dans le code source, \\
 qui est composé d'au moins 2000 fichiers, ce qui n'aide pas pour comprendre comment fonctionne PyOpenGL.
 
-Tout cela peut se -comprendre-, car PyOpenGL est un projet ancien
-alors qu'OpenGL et Python ont beaucoup évolué depuis.
-Une autre difficulté est qu'il n'y a pas d'API de haut niveau pour l'OpenGL moderne.
+Tout cela peut se -comprendre-, car PyOpenGL est un projet ancien \\
+alors qu'OpenGL et Python ont beaucoup évolué depuis. \\
+Une autre difficulté est qu'il n'y a pas d'API de haut niveau pour l'OpenGL moderne. \\
 (expliqué en quoi c'est gênant)
 
 (en résumé)
@@ -186,14 +200,14 @@ Enfin il y a les pointeurs dit complexe pour lequel la taille est calculé à pa
 L'idée de départ de cette interface est d'utiliser XML registry pour générer automatiquement une
 interface pour OpenGL.
 
-L'architecture repose sur une pile de trois composants:
-  une interface orientée objet de l'XML Registry dit ``GL API'',
-  un ``wrapper'' basé sur ctypes et cffi qui repose sur la ``GL API'',
+L'architecture repose sur une pile de trois composants: \\
+  une interface orientée objet de l'XML Registry dit ``GL API'', \\
+  un ``wrapper'' basé sur ctypes et cffi qui repose sur la ``GL API'', \\
   et une API de haut niveau pour faciliter les développements.
 
-Comme il n'y a pas une API OpenGL mais plusieurs, la seconde idée est que
-  1 l'utilisateur requiert/choisie son API,
-  2 on génère à la volée le wrapper, càd. un module contenant les constants et les fonctions de l'API souhaitée.
+Comme il n'y a pas une API OpenGL mais plusieurs, la seconde idée est que \\
+  1 l'utilisateur requiert/choisie son API, \\
+  2 on génère à la volée le wrapper, càd. un module contenant les constants et les fonctions de l'API souhaitée. \\
 
 Les commandes sont encapsulées dans une classe dit ``Command Wrapper'' 
 
@@ -201,9 +215,9 @@ Les commandes sont encapsulées dans une classe dit ``Command Wrapper''
 
 Dont je vais vous présenter un schéma de principe simplifié.
 
-L'appelle d'une fonction en C, requiert trois étapes~:
- 1 traduire les paramètres de Python vers C
- 2 appeler la fonction
+L'appelle d'une fonction en C, requiert trois étapes~: \\
+ 1 traduire les paramètres de Python vers C \\
+ 2 appeler la fonction \\
  3 traduire les valeurs retournées de C vers Python
 
 Ces trois étapes ont chacune leur classe.
@@ -212,7 +226,7 @@ Lorsque on créé une fonction, le constructeur de la classe CommandWrapper, par
 créé pour chacun une classe ParameterWrapper. En faîte il y a un ``if'', j'expliquerais pourquoi
 plus tard.
 
-L'appelle de la fonction OpenGL se fait via la méthode spéciale ``__call__'', qui est chargé de
+L'appelle de la fonction OpenGL se fait via la méthode spéciale ``\_\_call\_\_'', qui est chargé de
 mettre en oeuvre les trois étapes. Pour chaque paramètre passé par l'utilisateur, l'instance de
 ParameterWrapper assure la conversion et retourne le cas échéant une instance de ToPythonConverter
 pour effectuer la conversion inverse/retour. 
@@ -236,8 +250,8 @@ faire grand chose. Hormis regarder dans l'ordre si le paramètre est de type cha
 sinon requérir un tableaux Numpy, pour lequel on vérifiera le type si il ne s'agit pas d'un pointeur
 générique.
 
-Il y a des solutions pour améliorer la situation~:
- 1 on peut mettre en oeuvre un Pythonic Wrapper qui va encapsuler l'instance CommandWrapper
+Il y a des solutions pour améliorer la situation~: \\
+ 1 on peut mettre en oeuvre un Pythonic Wrapper qui va encapsuler l'instance CommandWrapper \\
  2 compléter le fichier XML
 
 \section{Slide 19}
@@ -248,9 +262,9 @@ taille est exprimé en nombre d'éléments ou en octet.
 Logiquement on va supposer que les pointeurs génériques on une taille exprimée en octet et les
 autres en nombre d'éléments.
 
-Le ParameterWrapper gère trois cas de figure~:
-  les chaîne de caractères,
-  les tableaux Numpy,
+Le ParameterWrapper gère trois cas de figure~: \\
+  les chaîne de caractères, \\
+  les tableaux Numpy, \\
   et les iterables qui sont plus confortable pour les petits tableaux (comme les uniforms).
 
 Comme on connaît la taille des objets en Python, le wrapper va se charger de passer la bonne valeur
@@ -260,17 +274,17 @@ pour l'utilisateur.
 
 À présent il nous reste plus cas regarder le cas des tableaux en écriture (et lecture).
 
-Le wrapper gére quatre cas~:
- 1 si le paramètre est de type générique, alors on requiert un tableaux Numpy,
+Le wrapper gére quatre cas~: \\
+ 1 si le paramètre est de type générique, alors on requiert un tableaux Numpy, \\
  2 si le paramètre est une chaîne de caractères, alors on une requiert une taille et on créé une
- chaîne de caractères qui sera retourné par l'appelant. 
- 3 si l'utilisateur passe un tableaux Numpy, alors on se retrouve dans un cas similaire au premier.
+ chaîne de caractères qui sera retourné par l'appelant. \\
+ 3 si l'utilisateur passe un tableaux Numpy, alors on se retrouve dans un cas similaire au premier. \\
  4 sinon on requiert une taille et on créé selon une valeur seuil soit une liste soit un tableaux
  Numpy qui sera retourné par l'appelant comme dans le second cas.  
 
 \section{Slide 21}
 
-Pour simplifier la vie du programmer,
+Pour simplifier la vie du programmer, \\
 cette interface dispose d'un utilitaire pour un interroger la GL API, ce qui utile pour valider les
 concepts du wrapper.
 
@@ -293,13 +307,13 @@ orienté objet. (varying binding)
 
 \section{Slide 23}
 
-Pour aller plus loin,
+Pour aller plus loin, \\
 vous trouverez le code source et la documentation dans ce dépôt github.
 
-Il y a encore du travail,
-tel que peaufiner la GL API,
-éventuellement retirer le wrapper ctypes au profit de cffi,
-tester plus largement le wrapper et faire des benchmarks,
+Il y a encore du travail, \\
+tel que peaufiner la GL API, \\
+éventuellement retirer le wrapper ctypes au profit de cffi, \\
+tester plus largement le wrapper et faire des benchmarks, \\
 et enfin améliorer l'API de haut niveau.
 
 Au vue de la taille de l'API OpenGL, 650 fonctions, il est évident qu'il est difficile de clamer

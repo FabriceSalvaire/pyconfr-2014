@@ -22,7 +22,7 @@
     \textbf{Convergence}
     \begin{itemize}
     \item du hardware professionnel et grand-publique
-    \item des processeurs graphiques et de flux
+    \item des processeurs graphiques et de calculs
     \item des plateformes~: de l'embarqué au super-calculateur 
     \end{itemize}
   \end{textblock}
@@ -276,7 +276,7 @@ void main() \{
     \begin{tabular}{lccc}
       & Avantages & Inconvénients & Pypy \\[.5em]
       %
-      \href{https://docs.python.org/3.4/c-api}{API C Python} &
+      \colorB{\href{https://docs.python.org/3.4/c-api}{API C Python}} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -293,7 +293,7 @@ void main() \{
       \textcolor{orange}{Non} \\[1em] % ???
       %
       \begin{minipage}[t]{2cm}
-        \href{http://www.swig.org}{SWIG} \\
+        \colorB{\href{http://www.swig.org}{SWIG}} \\
         \tiny{$=$ API C automatisé}
       \end{minipage} &
       \begin{minipage}[t]{.2\linewidth}
@@ -313,7 +313,7 @@ void main() \{
       \end{minipage} &
       \textcolor{orange}{Non} \\[1em] % ???
       %
-      \href{https://docs.python.org/3.4/library/ctypes.html}{Ctypes} &
+      \colorG{\href{https://docs.python.org/3.4/library/ctypes.html}{Ctypes}} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -329,7 +329,7 @@ void main() \{
       \end{minipage} &
       \textcolor{red}{Non} \\[1em]
       %
-      \href{https://cffi.readthedocs.org/en/release-0.8}{Cffi} &
+      \colorG{\href{https://cffi.readthedocs.org/en/release-0.8}{Cffi}} &
       \begin{minipage}[t]{.2\linewidth}
         \tiny
         \begin{itemize}
@@ -355,7 +355,10 @@ void main() \{
     \href{http://www.riverbankcomputing.com/software/sip/intro}{sip}
     \href{http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/}{Pyrex}
   \end{textblock}
-  %%%%%%%%%%
+  \begin{textblock}{5}(1,8)
+  \colorG{$\star$ \href{https://sourceware.org/libffi}{libffi}}
+  \end{textblock}
+  %%%%%%%%%% 
   \note{
     \begin{enumerate}
     \item Comment on lie une bibliothèque à Python
@@ -369,13 +372,9 @@ void main() \{
   \begin{description}
     \item[V1.x] C extension basé sur l'API C Python {\tiny (David Ascher et. al)}
     \item[V2.x] généré par SWIG {\tiny (Tarn Weisner Burton)}
-    \item[V3.x] basé sur ctypes {\tiny (\href{http://www.vrplumber.com}{Mike C. Fletcher})}
-      % -3.1.0
-      \begin{itemize}
-      \item \textbf{compatibilité ascendante avec la V2.x}
-      \item implémente un parser de fichier d'en-tête
-      \item PyOpenGL {\tiny et PyOpenGL-accelerate}
-      \end{itemize}
+    \item[V3.x] basé sur ctypes et un header parser % de fichier d'en-tête
+      {\tiny (\href{http://www.vrplumber.com}{Mike C. Fletcher})} \\
+      \textbf{compatibilité ascendante avec la V2.x}
     \end{description}
     \vspace{1em}
     et des alternatives plus spécifique~:
@@ -409,10 +408,11 @@ return name.value[:int(name_length[0])]
 \end{verbatim}}
     \end{itemize}
     \vspace{1em}
-    Résumé~:
+    En résumé~:
     \begin{itemize}
     \item \textbf{une longue histoire}
     \item un code source touffu~: 2000 fichiers \small({\emph{en comptant les extensions})}
+      % {\tiny et PyOpenGL-accelerate}
     \item Python et OpenGL ont évolué
     \item pas d'API de haut niveau pour l'OpenGL moderne % l'API 
     \end{itemize}
