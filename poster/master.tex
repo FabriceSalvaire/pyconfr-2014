@@ -55,7 +55,7 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
     \item Un standard \textbf{ouvert} piloté par le groupe Khronos
     \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
     \item L'API de facto de GNU/Linux et d'Android
-    \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES) \\
+    \item Une API orientée desktop (OpenGL), embarqué (OpenGL ES) \\
       et aussi orientée web (WebGL)
     \end{itemize}
   \end{minipage}
@@ -71,11 +71,11 @@ margin=0mm, innermargin=15mm, blockverticalspace=15mm, colspace=15mm, subcolspac
         % \draw [help lines] grid(30,5);
         \fill[mystyle] (6,1.25) rectangle +(6.5,.75);
         \node [mystyle, rectangle callout, callout relative pointer={(-1,1)}]
-        at (10,0) {la taille est indiqué};
+        at (10,0) {la taille est indiquée};
         \node[align=left, anchor=south west] at (0,0)
        {
          \begin{minipage}{30cm}
-           \footnotesize \textt{%
+           \footnotesize \texttt{%
              \begin{tabbing}
 void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data) \\[1em]
 <command> \\
@@ -192,7 +192,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
 
 \block[]{Objectifs}{
   \begin{itemize}
-  \item Compatible avec l'interpréteur Pypy grâce à Cffi (JIT)
+  \item Compatible avec l'interpréteur Pypy (JIT) grâce à Cffi
   \item Keep it simple
   \item Réduire l'overhead au minimum
   \item Focus sur l'OpenGL Moderne
@@ -246,7 +246,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
       \begin{minipage}{30cm}
         % \homePageOrange
         \textbf{Code Source~:} \\
-        \url{https://github.com/FabriceSalvaire/PyOpenGLng} \\[1em]
+        \texttt{https://github.com/FabriceSalvaire/PyOpenGLng} \\[1em]
         %
         \textbf{Article en relation avec OpenGL~:} \\
         High-Content Digital Microscopy with Python \\
@@ -254,12 +254,12 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
         \textbf{Projets Open Source en cours~:}
         \begin{itemize}
         \item PySpice~: simuler des circuits électroniques via Ngspice \\
-          \url{https://github.com/FabriceSalvaire/PySpice}
+          \texttt{https://github.com/FabriceSalvaire/PySpice}
         \item Gestionnaire de PDF \\
-          \url{https://github.com/FabriceSalvaire/Biblio}
+          \texttt{https://github.com/FabriceSalvaire/Biblio}
         \end{itemize}
       \end{minipage}
-      &
+      % &
       \begin{minipage}[t]{6cm}
         \begin{center}
           \includegraphics[width=6cm]{images/vcard.pdf}
