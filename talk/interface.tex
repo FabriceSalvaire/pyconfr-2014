@@ -51,7 +51,7 @@
   \begin{tikzpicture}[remember picture, overlay, mystyle/.style={fill=red!20, opacity=1.}] % run twice
     \fill[mystyle] ($(current page.south west) + (2.4,3.3)$) rectangle +(3.2,.5);
     \node [mystyle, rectangle callout, callout relative pointer={(-3.5,-.5)}]
-    at ($(current page.south west) + (10,4.5)$) {la taille est indiqué};
+    at ($(current page.south west) + (10,4.5)$) {la taille est indiquée};
   \end{tikzpicture}
   \href{https://www.opengl.org/registry}{Fichier XML} définissant~: \\
   \begin{itemize}
@@ -94,7 +94,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
       %
     \item[input/output via pointeur] \texttt{GLsizeiptr size, void \colorR{\ptr [size]} data} \\
       \colorG{la taille d'un tableau doit être indiqué en C} \\
-      \attention{} \alert{XML est incomplet~: \code{size = len(p)} \textbf{ou} \code{size\_of(p)}} \\[.5em]
+      %? \attention{} \alert{XML est incomplet~: \code{size = len(p)} \textbf{ou} \code{size\_of(p)}} \\[.5em]
       %
     \item[input via pointeur] \texttt{GLsizeiptr size, \colorR{const} void \colorR{\ptr [size]} data} \\
       \colorG{\code{const} indique que le paramètre est en lecture seul} \\[.5em]
@@ -102,7 +102,7 @@ void glClearBufferData (GLenum target, GLenum internalformat, GLenum format, GLe
     \item[pointeur complexe] \texttt{GLenum pname, GLint \colorR{\ptr [COMPSIZE(pname)]} data} \\
       \texttt{const void \ptr [COMPSIZE(format,type,width)] pixels} \\
       \colorG{la taille du tableau est calculé à partir des paramètres} \\
-      \attention{} \alert{XML est incomplet~: la formule n'est pas indiqué}
+      %? \attention{} \alert{XML est incomplet~: la formule n'est pas indiqué}
   \end{description}
   %%%%%%%%%%
   \note{
