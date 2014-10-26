@@ -6,7 +6,8 @@
 
 JOB_NAME = $(notdir ${PWD})
 
-MASTER = master
+#MASTER = master
+MASTER = texte
 TEXFILES = $(wildcard *.tex)
 FIGURES_PY = $(wildcard figures/*.py)
 FIGURES_PDF = $(patsubst %.py, %.pdf, ${FIGURES_PY})

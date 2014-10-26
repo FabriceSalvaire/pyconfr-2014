@@ -273,7 +273,7 @@ class \colorB{CommandWrapper}():
       If
       \begin{enumerate}
       \item type = \texttt{const char \ptr\ptr}~:\\
-        \code{str(p)} ou \code{[str(x) for x in p]}
+        \code{str(p)} \\ ou \code{[str(x) for x in p]}
       \item p = Numpy array~:\\
         check type if type not void \\
         \code{size = p.size ou p.nbytes}
@@ -363,13 +363,16 @@ class \colorB{CommandWrapper}():
   \frametitle{Pour se simplifier la vie \ldots}
   \begin{itemize}
     % \item Pythonic wrapper~: se substitue à la fonction 
-    \item query-opengl-api~: utilitaire pour interroger l'API
+    \item query-opengl-api~: utilitaire pour interroger l'API \\[2em]
     \item \code{command.manual()} dans une session IPython
-    \item \code{command.call\_counter} pour tracer son application
+    \item \code{command.call\_counter} pour tracer son application \\[2em]
     \item Gestion des erreurs
 \begin{verbatim}
 with GL.error_checker():
-  ...
+    ...
+    # at exit:
+    #     call glGetError
+    #     raise exception if GL error
 \end{verbatim}
 
   \end{itemize}
@@ -383,6 +386,14 @@ with GL.error_checker():
 
 \begin{frame}[fragile]
   \frametitle{High Level API}
+  \numberItem{1} \ OpenGL moderne est une API bas niveau \\
+  Surcouche offrant des services de bases~:
+  \begin{itemize}
+  \item viewport, projection, caméra
+  \item interface Orienté objet~: texture, VAO, VBO
+  \item font
+  \end{itemize}
+  \vspace{2em}
   \begin{center}
     \begin{columns}
       \begin{column}{.35\textwidth}
@@ -392,23 +403,18 @@ with GL.error_checker():
           {\scriptsize
 \begin{Verbatim}[commandchars=\\\{\}]
 \boxR{uniform} mat4 model_view_matrix;
-\boxR{uniform} mat3 normal_matrix;
-\boxR{uniform} usampler2D texture0;
 
 \boxG{in} vec3 position;
-\boxG{in} vec3 normal;
-
-\boxB{out} vec4 fragment_colour;
 
 void main() \{
   ...
-  fragment_colour = ...;
 \}
 \end{Verbatim}
           }
         \end{center}
       \end{column}
       \begin{column}{.5\textwidth}
+        \numberItem{2} \ Interface Orientée Objet~:
         \begin{itemize}
         \item Get/Set uniform \\
           \code{shader.model\_view\_matrix = array}

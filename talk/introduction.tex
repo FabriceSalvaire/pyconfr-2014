@@ -38,7 +38,8 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Présentation des GPUs~: processeurs de flux}
+  % \frametitle{Présentation des GPUs~: processeurs de flux}
+  \frametitle{Qeulques mots sur les GPUs}
   % dessin flux de données traversant la page
   \begin{center}
     % \begin{tabular}{>{\centering\arraybackslash}m{.4\textwidth} >{\centering\arraybackslash}m{.4\textwidth}}
@@ -131,7 +132,7 @@
     \end{column}
     \begin{column}{.8\textwidth}
       \begin{itemize}
-      \item Un standard \textbf{ouvert} piloté par le groupe \href{http://www.khronos.org}{Khronos}
+      \item Un standard \textbf{ouvert} gouverné par le groupe \href{http://www.khronos.org}{Khronos}
       \item La seule API \textbf{cross-platforme} et \textbf{cross-vendor} % cross / multi
       \item L'API de facto de GNU/Linux et d'Android
       \item Une API orientée desktop (OpenGL) et embarqué (OpenGL ES)
@@ -215,7 +216,8 @@
 \begin{frame}[fragile]
   \frametitle{Programmable Pipeline}
   \begin{center}
-    OpenGL Moderne $=$ Calcul Générique $+$ Graphic Stuffs
+    OpenGL Moderne $=$ Calcul Générique $+$ Graphic Stuffs \\[1em]
+    flux de vertex $\longrightarrow$ ligne / triangle $\longrightarrow$ pixels
   \end{center}
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -225,16 +227,17 @@
         e.g.\ float, matrice \\
         interpolateur d'images 1D/2D/3D
       \item données~: \boxG{in} \\
+        sous formes de flux (array) \\
         vecteur 1D/2D/3D
       \item résultat~: \boxB{out}
       \end{itemize}
     \end{column}
     \begin{column}{.4\textwidth}
       \begin{center}
-        Shader
+        Shader GLSL
         \rule{\textwidth}{1pt}
         % \framebox
-{\scriptsize
+{\scriptsize%
 \begin{Verbatim}[commandchars=\\\{\}]
 \boxR{uniform} mat4 model_view_matrix;
 \boxR{uniform} mat3 normal_matrix;
@@ -255,9 +258,9 @@ void main() \{
     \end{column}
   \end{columns}
   \begin{tikzpicture}[remember picture, overlay, mystyle/.style={-latex, line width=1pt}] % run % twice
-    \node (o1) at ($(current page.south west) + (7,5)$) {Numpy Array};
-    \draw[mystyle] (o1) -- ($(current page.south west) + (9,5)$);
-    \draw[mystyle] (o1) -- ($(current page.south west) + (9,3.5)$);
+    \node (o1) at ($(current page.south west) + (7,4.5)$) {Numpy Array};
+    \draw[mystyle] (o1) -- ($(current page.south west) + (9,4.5)$);
+    \draw[mystyle] (o1) -- ($(current page.south west) + (9,3)$);
   \end{tikzpicture}
   %%%%%%%%%%
   \note{
@@ -291,6 +294,7 @@ void main() \{
         \end{itemize}
       \end{minipage} &
       \textcolor{orange}{Non} \\[1em] % ???
+      %\hline
       %
       \begin{minipage}[t]{2cm}
         \colorB{\href{http://www.swig.org}{SWIG}} \\
@@ -312,6 +316,7 @@ void main() \{
         \end{itemize}
       \end{minipage} &
       \textcolor{orange}{Non} \\[1em] % ???
+      %\hline
       %
       \colorG{\href{https://docs.python.org/3.4/library/ctypes.html}{Ctypes}} &
       \begin{minipage}[t]{.2\linewidth}
@@ -328,6 +333,7 @@ void main() \{
         \end{itemize}
       \end{minipage} &
       \textcolor{red}{Non} \\[1em]
+      %\hline
       %
       \colorG{\href{https://cffi.readthedocs.org/en/release-0.8}{Cffi}} &
       \begin{minipage}[t]{.2\linewidth}

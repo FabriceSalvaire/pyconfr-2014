@@ -14,155 +14,197 @@ headsep=0cm, footskip=0cm,%
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Postscript layout of CM with T1 coding
 
+\usepackage{frenchle}
+
 \begin{document}
 
 \section{Slide 1}
 
-Bonjour, 
+\noindent%
+Bonjour, présentation
 
+\noindent%
 Je vais vous présenter une interface expérimentale pour lier OpenGL à Python, \\
-que j'ai réaliser au cours de cette année.
+que j'ai réalisé au cours de cette année.
 
 \section{Slide 2}
 
+\noindent%
 Ma présentation va s'articuler en trois temps~: \\
-  dans un premier temps je vais introduire l'API OpenGL et les Gpus, \\
+  dans un premier temps je vais introduire l'API OpenGL et les GPUS, \\
   ensuite je vais vous parler de l'interface \\
-  et finir par une démonstration.
+  et terminer par une démonstration.
 
 \section{Slide 3}
 
-Pour commencer nous allons regarder l'évolution des processeurs graphiques au cours du temps,
+\noindent%
+Pour commencer nous allons regarder l'évolution des processeurs graphiques au cours du temps, \\
 
+\noindent%
 en 1970 les pionniers construisaient de grosses machines, \\
 ensuite les stations de travail sont apparues, \\
 puis les accélérateurs graphiques se sont démocratisés, \\
 en 2000 Nvidia a commercialisé le premier GPU, \\
-puis en 2006 sont apparus les processeurs génériques.
+puis en 2006 sont apparus les processeurs génériques. \\
 
-On observe une convergence, il n'y a plus de différence entre le monde professionnel et grand-publique, \\
+\noindent%
+On observe une convergence, il n'y a plus de différence entre le monde professionnel et grand-publique,
 la même technologie est utilisé de l'embarqué aux super-calculateurs.
 
 \section{Slide 4}
 
-Qu'est ce qui différencie un GPU d'un CPU ?
+\noindent%
+Qu'est ce qui différencie un GPU d'un CPU ? \\
 
-Ce n'est pas la même manière d'exploiter la surface de silicium comme vous le voir sur ces photos de
-dies.
+\noindent%
+Ce n'est pas la même manière d'exploiter la surface de silicium comme vous pouvez le voir sur ces
+photos de dies. \\
 
-Il s'agit ...
+\noindent%
+Il s'agit d'une architecture de calcul hautement parallèle \\
+avec des interpolateurs de lignes et de triangles \\
+et couplée à une mémoire rapide.
 
 \section{Slide 5}
 
-À quoi servent les GPUs ?
+\noindent%
+À quoi servent les GPUs ? \\
 
-On peut les utiliser pour la 3D, dans les moteurs de jeu, la CAO, la visualisation scientifique, et
-plus récemment pour les interfaces graphiques et même la 2D.
+\noindent%
+On peut les utiliser pour faire plein de choses~: la 3D, dans les moteurs de jeu, la CAO, la
+visualisation scientifique, et plus récemment pour les interfaces graphiques et même la 2D.
 
 \section{Slide 6}
 
-L'API OpenGL est un standard ouvert gouverné par le groupe khronos qui permet de -piloter- un GPU. \\
-et la seule API multi-platforme. \\
-C'est l'API pour Linux et Android. \\
+\noindent%
+OpenGL pour Open Graphic Library est une API qui permet de piloter un GPU. \\
+C'est un standard ouvert gouverné par le groupe khronos.  \\
+C'est la seule API multi-platforme et l'API pour Linux et Android. \\
 Il y a plusieurs API, orientée desktop, OpenGL ES pour l'embarqué et WebGL pour le web.
 
+\noindent%
 OpenGL n'est pas un monde idéal, mais il y a des initiatives pour une nouvelle génération.
 
 \section{Slide 7}
 
+\noindent%
 OpenGL a été créé par Silicon Graphics il y a plus de 20 ans déjà. En 2008 son développement s'est
-accéléré avec l'avènement du pipeline programmable livré avec la V3. Mais il y a des concurrents.
+accéléré avec l'avènement du pipeline programmable livré avec la V3. Mais il y a des concurrents. \\
 
+\noindent%
 Comme souvent on observe un déphasage due à l'inertie au changement. Il y a un déphasage entre
-OpenGL, le matériel, le parc machine, et le programmeur.
+OpenGL, le matériel, le parc machine et le programmeur. \\
 
+\noindent%
 Lorsqu'on développe une application avec OpenGL, une question fondamental est de savoir qu'elle API choisir.
 
 \section{Slide 8}
 
-L'API OpenGL est découpé en extensions où chacune regroupe un ensemble de nouvelle fonctions avant
-leurs intégrations dans l'API core.
+\noindent%
+L'API OpenGL est découpé en extensions où chacune d'entre elle regroupe un ensemble de nouvelle fonctions avant
+leurs intégrations dans l'API core. \\
 
+\noindent%
 Mesa est à l'origine une implémentation logicielle d'OpenGL, aujourd'hui c'est un composant
-essentiel pour OpenGL sous Linux pour les drivers open source.
+essentiel pour les pilotes graphiques open source sous Linux. \\
 
-Le graphique représente le statu(s) actuel de Mesa pour le GPU d'Intel. \\
+\noindent%
+Le graphique représente le status actuel de Mesa pour le GPU d'Intel. \\
 On voit que l'on est à deux doigts d'OpenGL V4.
 
-Aujourd'hui seul le driver propriétaire de Nvidia implémente la quasi totalité de l'API OpenGL.
+\noindent%
+Aujourd'hui seul le driver propriétaire de Nvidia implémente la quasi totalité de l'API (OpenGL).
 
 \section{Slide 9}
 
+\noindent%
 Aujourd'hui OpenGL se résume à un langage de calcul générique GLSL qui est mis en oeuvre dans des programmes
-appelés shader et des fonctions spécifiques au graphisme.
+appelés shader et des fonctions spécifiques au graphisme. \\
 
-Les paramètres d'un shader sont des constantes appelés uniform qui peuvent être des flottants, des
+\noindent%
+Les paramètres d'un shader sont des constantes appelées uniform qui peuvent être des flottants, des
 matrices, ou des indexes représentant une texture. Les données variables d'un shader sont des
-vecteurs de une à quatre dimensions.
+vecteurs de une à quatre dimensions. \\
 
+\noindent%
 Ces vecteurs sont issues d'un flux de donnés qui représente des vertex de primitive graphiques tel
 que des lignes et des triangles qui sont interpolés en pixels.  
 
 \section{Slide 10}
 
-Il y a plusieurs solution pour interfacer du code C à Python, \\
-chacune à ses avantages et ses inconvénients.
+\noindent%
+Il y a plusieurs solutions pour interfacer du code C à Python, \\
+chacune à ses avantages et ses inconvénients. \\
 
-Il y a deux grandes familles, celles qui sont basé sur l'API C Python et celles qui sont basé sur la
-bibliothèque FFI.
+\noindent%
+Il y a deux grandes familles, celles qui sont basées sur l'API C Python et celles qui sont basées
+sur la bibliothèque FFI. \\
 
+\noindent%
 Ensuite il y a des solutions qui sont directement capable de lire les fichiers d'en-tête C, \\
-et des solutions qui ne requiert pas de compilateur C.
+et des solutions qui ne requierent pas de compilateur C. \\
 
+\noindent%
 Au niveau de l'interpréteur Pypy (JIT), seul Cffi est supporté, elle est d'ailleurs développée par
-les mêmes personnes.
+les mêmes personnes. \\
 
+\noindent%
 En résumé, ...
 
 \section{Slide 11}
 
-PyOpenGL est la référence actuelle pour utiliser OpenGL en Python.
+\noindent%
+PyOpenGL est la référence actuelle pour utiliser OpenGL en Python. \\
 
-Ce package en est à sa troisième génération, \\
+\noindent%
+Ce package en est à sa troisième génération ***, \\
+il a suivit l'évolution des techniques de binding, \\
 au début il s'agissait d'une extension basé sur l'API C, \\
-puis cela a été automatisé grâce à SWIG, \\
-et par la suite réimplémenté en utilisant ctypes et parser de fichiers d'en-tête.
+puis elle a été automatisé grâce à SWIG, \\
+et par la suite réimplémenté en utilisant ctypes et un parser de fichiers d'en-tête. \\
 
-La V3 a conservé une compatibilité ascendante avec la V2
+\noindent%
+La V3 a conservé une compatibilité ascendante avec la V2. \\
 
+\noindent%
 En outre il existe des alternatives plus spécifique, \\
-Pyglet pour les jeux, et plus récemment vispy pour la visualisation scientifique.
-
-(monté parser, supprimer Pyopengl ...)
+Pyglet pour les jeux, et plus récemment vispy pour la visualisation scientifique. \\
 
 \section{Slide 12}
 
+\noindent%
 Au cours de ces dernières années, j'ai utilisé PyOpenGL pour développer une application
-industrielle.
+industrielle. \\
 
+\noindent%
 J'ai rencontré au fil du temps plusieurs difficultés, essentiellement due à un déphasage avec OpenGL. \\
 Des constantes étaient absentes, \\
 Certaines fonctions n'ont pas de Pythonic Wrapper et requiert du ``glue code'' pas très sympathique. \\
-Des fonctions étaient perdues dans la hiérarchie de module, et retrouvé à coups de grep dans le code source, \\
-qui est composé d'au moins 2000 fichiers, ce qui n'aide pas pour comprendre comment fonctionne PyOpenGL.
+Des fonctions étaient perdues dans la hiérarchie de module, retrouvé à coups de grep dans le code source, \\
+composé d'au moins 2000 fichiers, ce qui ne favorise pas la compréhension de PyOpenGL. \\
 
-Tout cela peut se -comprendre-, car PyOpenGL est un projet ancien \\
+\noindent%
+Ceci n'est pas surprenant car PyOpenGL est un projet ancien \\
 alors qu'OpenGL et Python ont beaucoup évolué depuis. \\
-Une autre difficulté est qu'il n'y a pas d'API de haut niveau pour l'OpenGL moderne. \\
-(expliqué en quoi c'est gênant)
 
-(en résumé)
+\noindent%
+Une autre difficulté est due à l'absence d'API de haut niveau pour l'OpenGL moderne. \\
+(expliqué en quoi c'est gênant) \\
 
 \section{Slide 13}
 
-À quoi ressemble l'API OpenGL?
+\noindent%
+À quoi ressemble l'API OpenGL? \\
 
-La dernière version d'OpenGL comporte pas moins de 1328 constantes et 653 fonctions.
+\noindent%
+La dernière version d'OpenGL comporte pas moins de 1328 constantes et 653 fonctions. \\
 
+\noindent%
 % /fondamentales
 Les paramètres des fonctions sont des types de bases définies via des typedefs et des
-pointeurs. Les valeurs retournées sont en général simple à part quelques cas.
+pointeurs. Les valeurs retournées sont en général simple à part quelques cas. \\
 
+\noindent%
 Du point de vue de Python, les paramètres sont donc des entiers, des flottants, des chaînes de
 caractères et des tableaux Numpy qui sont en réalité des tableaux C. % mieux ?
 
@@ -170,62 +212,84 @@ caractères et des tableaux Numpy qui sont en réalité des tableaux C. % mieux 
 
 \section{Slide 14}
 
-En Juin 2013, le groupe Khronos a mis à disposition du publique, un fichier XML qui décrit
+\noindent%
+En Juin 2013 (1 an), le groupe Khronos a mis à disposition du publique, un fichier XML qui décrit
 l'ensemble de l'API OpenGL, les constantes, les fonctions et leur prototypes, les extensions, ainsi
-que la composition de chaque version et profile. % définir profile
+que la composition de chaque version et profile. \\ % définir profile
 
+\noindent%
 Ce fichier apporte des informations essentielles par rapport au seul fichier d'en-tête, comme le
 paramètre correspondant à la taille d'un tableau.
 
 \section{Slide 15}
 
-Nous allons à présent regarder de plus près les prototypes des fonctions.
+\noindent%
+Nous allons à présent regarder de plus près les prototypes des fonctions. \\
 
-Il y a cinq type de paramètres.
+\noindent%
+Il y a cinq type de paramètres. \\
 
-Les paramètres simples qui sont passé par copie.
+\noindent%
+Les paramètres simples qui sont passé par copie. \\
 
-Les paramètres qui sont en faîte des valeurs retourné, qui doivent être passé en C par référence
-lorsqu'il y a plus d'une valeur retournée. On les reconnaît à leur taille unitaire.
+\noindent%
+Les paramètres qui sont en faîte des valeurs retournées, qui doivent être passé en C par référence
+lorsqu'il y a plus d'une valeur retournée. On les reconnaît à leur taille unitaire. \\
 
-Les tableaux en écriture ou lecture passés sous forme de pointeur, on en principe en C un paramètre
-indiquant la taille.
+\noindent%
+Les tableaux en écriture ou lecture passés sous forme de pointeur, avec en principe en C un paramètre
+indiquant la taille. \\
 
-Les tableaux en lecture seule sont reconnaissable par l'usage du qualificatif ``const''.
+\noindent%
+Les tableaux en lecture seule sont reconnaissable par l'usage du qualificatif ``const''. \\
 
-Enfin il y a les pointeurs dit complexe pour lequel la taille est calculé à partir d'un ou plusieurs paramètres.
+\noindent%
+Enfin il y a les pointeurs dit complexes pour lequel la taille est calculée à partir d'un ou plusieurs paramètres.
 
 \section{Slide 16}
 
-L'idée de départ de cette interface est d'utiliser XML registry pour générer automatiquement une
-interface pour OpenGL.
+% slide intro
 
+\noindent%
+L'idée de départ de cette interface est d'utiliser l'XML registry pour générer automatiquement une
+interface pour OpenGL. *** \\
+
+% D'un côté, j'ai plus de 2000 fichiers. De l'autre ... Que peut on en faire? 
+
+\noindent%
 L'architecture repose sur une pile de trois composants: \\
   une interface orientée objet de l'XML Registry dit ``GL API'', \\
   un ``wrapper'' basé sur ctypes et cffi qui repose sur la ``GL API'', \\
-  et une API de haut niveau pour faciliter les développements.
+  et une API de haut niveau pour faciliter les développements. \\
 
+\noindent%
 Comme il n'y a pas une API OpenGL mais plusieurs, la seconde idée est que \\
   1 l'utilisateur requiert/choisie son API, \\
-  2 on génère à la volée le wrapper, càd. un module contenant les constants et les fonctions de l'API souhaitée. \\
+  2 puis on génère à la volée le wrapper, càd. un module contenant les constants et les fonctions de l'API souhaitée. \\
 
+\noindent%
 Les commandes sont encapsulées dans une classe dit ``Command Wrapper'' 
 
 \section{Slide 17}
 
-Dont je vais vous présenter un schéma de principe simplifié.
+\noindent%
+Dont je vais vous présenter un schéma de principe simplifié. \\
 
+\noindent%
 L'appelle d'une fonction en C, requiert trois étapes~: \\
  1 traduire les paramètres de Python vers C \\
  2 appeler la fonction \\
- 3 traduire les valeurs retournées de C vers Python
+ 3 traduire les valeurs retournées de C vers Python \\
 
-Ces trois étapes ont chacune leur classe.
+\noindent%
+Ces trois étapes ont chacune leur classe. \\
 
+\noindent%
 Lorsque on créé une fonction, le constructeur de la classe CommandWrapper, parcourt le prototype est
 créé pour chacun une classe ParameterWrapper. En faîte il y a un ``if'', j'expliquerais pourquoi
-plus tard.
+plus tard. \\
 
+\noindent%
 L'appelle de la fonction OpenGL se fait via la méthode spéciale ``\_\_call\_\_'', qui est chargé de
 mettre en oeuvre les trois étapes. Pour chaque paramètre passé par l'utilisateur, l'instance de
 ParameterWrapper assure la conversion et retourne le cas échéant une instance de ToPythonConverter
@@ -233,100 +297,124 @@ pour effectuer la conversion inverse/retour.
 
 \section{Slide 18}
 
+\noindent%
 Ce mécanisme met en oeuvre une traduction automatique des paramètres que je vais vous présenter en
-passant en revue les cinq types de paramètres.
+passant en revue les cinq types de paramètres. *** \\
 
+\noindent%
 Le principe de la traduction automatique consiste à exploiter les spécificités de l'API OpenGL, ce
-qui est une approche particulière.
+qui est une approche particulière. \\
 
-Pour les paramètres simples il y a juste à faire une conversion de Python vers C.
+\noindent%
+Pour les paramètres simples il y a juste à faire une conversion de Python vers C. \\
 
+\noindent%
 Pour les paramètres passé par référence, on souhaite cacher les détails du C et déplacer ces
 paramètres dans la liste des valeurs retournés. Pour ce faire on créé en mémoire le paramètre et on
-le retourne dans l'ordre à la suite des autres. (pointeur) On voit la traduction des prototypes ici.
+le retourne dans l'ordre à la suite des autres. (pointeur) On voit la traduction des prototypes ici. \\
 
+\noindent%
 Pour les pointeurs complexes, L'XML Registry ne donne pas de formule, on ne peut donc pas en l'état
 faire grand chose. Hormis regarder dans l'ordre si le paramètre est de type chaîne de caractères et
 sinon requérir un tableaux Numpy, pour lequel on vérifiera le type si il ne s'agit pas d'un pointeur
-générique.
+générique. \\
 
+\noindent%
 Il y a des solutions pour améliorer la situation~: \\
  1 on peut mettre en oeuvre un Pythonic Wrapper qui va encapsuler l'instance CommandWrapper \\
  2 compléter le fichier XML
 
 \section{Slide 19}
 
+\noindent%
 Pour les tableaux en lecture seule, l'XML Registry est aussi incomplète car elle n'indique pas si la
-taille est exprimé en nombre d'éléments ou en octet.
+taille est exprimée en nombre d'éléments ou en octet. \\
 
+\noindent%
 Logiquement on va supposer que les pointeurs génériques on une taille exprimée en octet et les
-autres en nombre d'éléments.
+autres en nombre d'éléments. \\
 
+\noindent%
 Le ParameterWrapper gère trois cas de figure~: \\
   les chaîne de caractères, \\
   les tableaux Numpy, \\
-  et les iterables qui sont plus confortable pour les petits tableaux (comme les uniforms).
+  et les iterables qui sont plus confortable pour les petits tableaux (comme les uniforms). \\
 
+\noindent%
 Comme on connaît la taille des objets en Python, le wrapper va se charger de passer la bonne valeur
 pour l'utilisateur.
 
 \section{Slide 20}
 
-À présent il nous reste plus cas regarder le cas des tableaux en écriture (et lecture).
+\noindent%
+À présent il nous reste plus qu'à regarder le cas des tableaux en écriture (et lecture). *** \\
 
+\noindent%
 Le wrapper gére quatre cas~: \\
- 1 si le paramètre est de type générique, alors on requiert un tableaux Numpy, \\
- 2 si le paramètre est une chaîne de caractères, alors on une requiert une taille et on créé une
+ 1 si le pointeur est de type générique, alors on requiert un tableaux Numpy, \\
+ 2 si le pointeur est une chaîne de caractères, alors on requiert une taille et on créé une
  chaîne de caractères qui sera retourné par l'appelant. \\
  3 si l'utilisateur passe un tableaux Numpy, alors on se retrouve dans un cas similaire au premier. \\
  4 sinon on requiert une taille et on créé selon une valeur seuil soit une liste soit un tableaux
- Numpy qui sera retourné par l'appelant comme dans le second cas.  
+ Numpy qui sera retourné par l'appelant comme dans le second cas.
 
 \section{Slide 21}
 
-Pour simplifier la vie du programmer, \\
-cette interface dispose d'un utilitaire pour un interroger la GL API, ce qui utile pour valider les
-concepts du wrapper.
+\noindent%
+Pour simplifier la vie du programmeur, \\
+cette interface dispose d'un utilitaire pour un interroger la GL API, ce qui est utile pour valider
+les concepts du wrapper. \\
 
-La classe CommandWrapper dispose d'une fonction retournant le mode d'emploi de la fonction, lors d'une
-session Ipython par exemple.
+\noindent%
+La classe CommandWrapper dispose d'une fonction retournant le mode d'emploi de la fonction, à
+utiliser dans une session Ipython par exemple. \\
 
-Elle dispose aussi d'un compteur d'appels pour tracer son application.
+\noindent%
+Elle dispose aussi d'un compteur d'appels pour tracer son application. \\
 
+\noindent%
 Au niveau de la gestion d'erreur qui n'est pas simple en C, le module dispose d'un context manager
 pour lancer une exception si une erreur est survenu. On peut aussi vérifier cela lors d'un appel de
 fonction en activant un kwargs.
 
 \section{Slide 22}
 
+\noindent%
 Pour ce qui concerne l'API de haut niveau on souhaite essentiellement une surcouche pour faciliter
-le développement d'application qui peut être différente selon le type d'application.
+le développement d'application qui peut être différente selon le type d'application. \\
 
+\noindent%
 Ainsi qu'un moyen d'initialiser ou lire les uniforms dans les shader au moyen d'une interface
 orienté objet. (varying binding)
 
 \section{Slide 23}
 
+\noindent%
 Pour aller plus loin, \\
-vous trouverez le code source et la documentation dans ce dépôt github.
+vous trouverez le code source et la documentation dans ce dépôt github. \\
 
+\noindent%
 Il y a encore du travail, \\
 tel que peaufiner la GL API, \\
 éventuellement retirer le wrapper ctypes au profit de cffi, \\
 tester plus largement le wrapper et faire des benchmarks, \\
-et enfin améliorer l'API de haut niveau.
+et enfin améliorer l'API de haut niveau. \\
 
+\noindent%
 Au vue de la taille de l'API OpenGL, 650 fonctions, il est évident qu'il est difficile de clamer
 d'être conforme à 100 \% avec l'API OpenGL.
 
 \section{Slide 24}
 
-Je vais à présent vous faire une démonstration mettant en oeuvre cette interface.
+\noindent%
+Je vais à présent vous faire une démonstration mettant en oeuvre cette interface. \\
 
-Dans un premier temps je vais vous montrer un démonstrateur inclus dans le code source de l'interface.
+\noindent%
+Dans un premier temps je vais vous montrer un démonstrateur inclus dans le code source de l'interface. \\
 
+\noindent%
 Et ensuite un visualisateur de fichier DVI générer par LaTeX reposant sur le package Python PyDvi
-que j'ai développé qui permet de lire ces fichiers. L'originalité de ce visualisateur est qu'il est
+que j'ai développé et qui permet de lire ces fichiers. L'originalité de ce visualisateur est qu'il est
 programmé en Python et met en oeuvre une accélération matériel par GPU.
 
 \end{document}
